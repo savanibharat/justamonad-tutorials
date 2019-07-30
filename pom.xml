@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.justamonad.tutorials</groupId>
+	<artifactId>justamonad-tutorials</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>justamonad-tutorials</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<compile.source>1.8</compile.source>
+		<source.version>1.8</source.version>
+		<binary.version>1.8</binary.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<modules>
+		<module>justamonad-tutorials-generics</module>
+		<module>justamonad-tutorials-stream</module>
+		<module>justamonad-tutorials-functional-programming</module>
+		<module>justamonad-tutorials-optional</module>
+		<module>justamonad-tutorials-google-guava</module>
+		<module>justamonad-tutorials-immutable-objects</module>
+		<module>justamonad-tutorials-misc</module>
+		<module>justamonad-tutorials-leetcode</module>
+	</modules>
+</project>
