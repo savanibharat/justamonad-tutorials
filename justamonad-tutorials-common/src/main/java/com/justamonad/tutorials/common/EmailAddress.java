@@ -1,7 +1,5 @@
 package com.justamonad.tutorials.common;
 
-import static com.justamonad.tutorials.common.JsonConverter.toJsonString;
-
 import java.util.Collections;
 import java.util.Objects;
 
@@ -19,7 +17,7 @@ public class EmailAddress {
 
 	@Override
 	public String toString() {
-		return toJsonString(Collections.singletonMap("emailAddress", emailAddress));
+		return JsonConverter.toJsonString(Collections.singletonMap("emailAddress", emailAddress));
 	}
 
 }

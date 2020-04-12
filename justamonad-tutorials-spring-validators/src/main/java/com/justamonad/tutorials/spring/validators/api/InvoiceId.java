@@ -1,6 +1,5 @@
-package com.justamonad.tutorials.common;
+package com.justamonad.tutorials.spring.validators.api;
 
-import java.util.Collections;
 import java.util.UUID;
 
 public class InvoiceId {
@@ -46,7 +45,7 @@ public class InvoiceId {
 
 	@Override
 	public String toString() {
-		return JsonConverter.toJsonString(Collections.singletonMap("invoice_id", uuid.toString()));
+		return "InvoiceId [" + uuid + "]";
 	}
 
 }

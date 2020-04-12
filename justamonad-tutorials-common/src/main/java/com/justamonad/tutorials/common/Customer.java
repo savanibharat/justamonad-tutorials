@@ -1,10 +1,8 @@
 package com.justamonad.tutorials.common;
 
-import static com.justamonad.tutorials.common.JsonConverter.toJsonString;
-import static java.util.Objects.requireNonNull;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Customer {
 
@@ -17,7 +15,7 @@ public class Customer {
 	}
 
 	public static Customer of(EmailAddress emailAddress, Name name) {
-		return new Customer(requireNonNull(emailAddress), requireNonNull(name));
+		return new Customer(Objects.requireNonNull(emailAddress), Objects.requireNonNull(name));
 	}
 
 	@Override
@@ -50,7 +48,7 @@ public class Customer {
 		Map<String, Object> map = new LinkedHashMap<>();
 		map.put("name", name.toString());
 		map.put("email_address", emailAddress.toString());
-		return toJsonString(map);
+		return JsonConverter.toJsonString(map);
 	}
 
 }

@@ -1,12 +1,9 @@
 package com.justamonad.tutorials.common;
 
-import static com.justamonad.tutorials.common.JsonConverter.toJsonString;
 import static java.math.BigDecimal.ZERO;
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toList;
-import static org.joda.money.CurrencyUnit.USD;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -34,15 +31,28 @@ public class Invoice {
 		Objects.requireNonNull(date);
 		Objects.requireNonNull(items);
 
-		List<Item> itemsCopy = items.stream().collect(collectingAndThen(toList(), Collections::unmodifiableList));
-
-		Money money = Money.of(USD, ZERO);
-		if (!itemsCopy.isEmpty()) {
-			CurrencyUnit currencyUnit = itemsCopy.get(0).price().getCurrencyUnit();
-			Money identity = Money.of(currencyUnit, ZERO);
-			money = itemsCopy.stream().map(item -> item.price()).reduce(identity, Money::plus);
+		if (items == null || items.isEmpty()) {
+			throw new IllegalStateException("items must not be empty.");
 		}
-		return new Invoice(date, itemsCopy, InvoiceId.createInvoiceId(), money);
+
+		long count = items.stream().map(item -> item.price().getCurrencyUnit()).distinct().count();
+
+		if (count > 1) {
+			throw new IllegalStateException("Multiple currencies in single invoice is not allowed.");
+		}
+
+		return new Invoice(
+				date, 
+				Collections.unmodifiableList(new ArrayList<>(items)), 
+				InvoiceId.createInvoiceId(),
+				invoiceTotal(items));
+	}
+
+	private static Money invoiceTotal(final List<Item> items) {
+		CurrencyUnit currencyUnit = items.get(0).price().getCurrencyUnit();
+		Money identity = Money.of(currencyUnit, ZERO);
+		Money money = items.stream().map(item -> item.price()).reduce(identity, Money::plus);
+		return money;
 	}
 
 	public LocalDate date() {
@@ -93,7 +103,7 @@ public class Invoice {
 		map.put("invoice_id", invoiceId.toString());
 		map.put("tems", items.toString());
 		map.put("invoice_total", invoiceTotal.getAmount());
-		return toJsonString(map);
+		return JsonConverter.toJsonString(map);
 	}
 
 }

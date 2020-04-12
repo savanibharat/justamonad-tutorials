@@ -23,7 +23,8 @@ public class TransactionTest {
 		Transaction s = Transaction.of(
 				Customer.of(EmailAddress.of("abc@gmail.com"), Name.of("John", "Doe")), 
 				new Merchant(), 
-				Invoice.of(LocalDate.now(), Arrays.asList(Item.of("Toy", Money.of(CurrencyUnit.USD, BigDecimal.TEN), "12345"))));
+				Invoice.of(LocalDate.now(), Arrays.asList(Item.of("Toy", Money.of(CurrencyUnit.USD, BigDecimal.TEN), "12345"),
+						Item.of("Toy", Money.of(CurrencyUnit.USD, BigDecimal.TEN), "12345"))));
 		System.out.println(s);
 	}
 
