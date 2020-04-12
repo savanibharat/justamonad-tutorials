@@ -8,10 +8,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.justamonad.tutorials.spring.validators.api.RequestValidationException;
 import com.justamonad.tutorials.spring.validators.api.Transaction;
-import com.justamonad.tutorials.spring.validators.api.TransactionRequestValidator;
 import com.justamonad.tutorials.spring.validators.config.TestConfig;
-import com.justamonad.tutorials.spring.validators.impl.RequestValidationException;
+import com.justamonad.tutorials.spring.validators.impl.TransactionRequestValidator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestConfig.class })

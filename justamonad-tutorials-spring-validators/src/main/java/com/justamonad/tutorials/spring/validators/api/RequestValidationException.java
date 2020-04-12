@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.spring.validators.impl;
+package com.justamonad.tutorials.spring.validators.api;
 
 public final class RequestValidationException extends IllegalArgumentException {
 

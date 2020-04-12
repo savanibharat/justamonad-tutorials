@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.spring.validators.api;
+package com.justamonad.tutorials.spring.validators.impl;
 
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toList;
@@ -10,9 +10,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.justamonad.tutorials.spring.validators.impl.ErrorData;
-import com.justamonad.tutorials.spring.validators.impl.RequestValidationException;
-import com.justamonad.tutorials.spring.validators.impl.ValidatorFunction;
+import com.justamonad.tutorials.spring.validators.api.RequestValidationException;
+import com.justamonad.tutorials.spring.validators.api.Transaction;
 
 @Named
 public final class TransactionRequestValidator {
