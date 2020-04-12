@@ -103,5 +103,6 @@
 		<module>justamonad-tutorials-common</module>
 		<module>justamonad-tutorials-functions</module>
 		<module>justamonad-tutorials-spring-validators</module>
+		<module>justamonad-tutorials-vavr</module>
 	</modules>
 </project>
