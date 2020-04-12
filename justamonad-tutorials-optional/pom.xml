@@ -16,17 +16,6 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.vavr</groupId>
-			<artifactId>vavr</artifactId>
-			<version>1.0.0-alpha-3</version>
-		</dependency>
-		<dependency>
 			<groupId>com.justamonad.tutorials</groupId>
 			<artifactId>justamonad-tutorials-common</artifactId>
 			<version>${project.version}</version>

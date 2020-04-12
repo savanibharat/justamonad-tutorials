@@ -1,4 +1,6 @@
-package com.justamonad.tutorials.functions;
+package org.justamonad.tutorials.functions;
+
+import java.util.function.Function;
 
 public class HigherOrderFunction {
 

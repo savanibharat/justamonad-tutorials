@@ -8,8 +8,8 @@
 		<artifactId>justamonad-tutorials</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>justamonad-tutorials-leetcode</artifactId>
-	<name>justamonad-tutorials-leetcode</name>
+	<artifactId>justamonad-tutorials-spring-validators</artifactId>
+	<name>justamonad-tutorials-spring-validators</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,4 +21,24 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<!-- Write documentation on why this plugins are needed. -->
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+	</build>
+
 </project>
