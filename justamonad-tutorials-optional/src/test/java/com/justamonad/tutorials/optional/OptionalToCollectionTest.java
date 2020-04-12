@@ -15,7 +15,8 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
-import org.justamonad.tutorials.optional.functional.Option;
+
+import com.justamonad.tutorials.optional.functional.Option;
 
 public class OptionalToCollectionTest {
 

@@ -7,8 +7,9 @@ import java.util.Optional;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 import org.junit.Test;
-import org.justamonad.tutorials.common.InvoiceId;
-import org.justamonad.tutorials.common.Transaction;
+
+import com.justamonad.tutorials.common.InvoiceId;
+import com.justamonad.tutorials.common.Transaction;
 
 public class OptionalOrElseFamilyTest {
 
