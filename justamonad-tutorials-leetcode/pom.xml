@@ -7,9 +7,7 @@
     <artifactId>justamonad-tutorials</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.justamonad.tutorials</groupId>
   <artifactId>justamonad-tutorials-leetcode</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <name>justamonad-tutorials-leetcode</name>
   <url>http://maven.apache.org</url>
   <properties>

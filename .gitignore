@@ -8,6 +8,7 @@
 .classpath
 .project
 .settings/
+/.settings
 .idea/
 *.iml
 
@@ -17,7 +18,7 @@ bin
 4cc.checksum
 ebay.log
 *.class
-/target/
+target/
 test-output/
 build.xml
 ebay-build.xml
@@ -32,3 +33,5 @@ rebel.xml
 */temp_persist_config_*.xml
 */src/main/resources/buildinfo.properties.tmp/
 .tmp/
+
+

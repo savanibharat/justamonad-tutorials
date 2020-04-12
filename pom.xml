@@ -12,9 +12,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<compile.source>1.8</compile.source>
-		<source.version>1.8</source.version>
-		<binary.version>1.8</binary.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -23,6 +22,46 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>28.0-jre</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.9.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ibm.icu</groupId>
+			<artifactId>icu4j</artifactId>
+			<version>64.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.joda</groupId>
+			<artifactId>joda-money</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.vavr</groupId>
+			<artifactId>vavr</artifactId>
+			<version>0.9.2</version>
 		</dependency>
 	</dependencies>
 	<modules>
@@ -34,5 +73,11 @@
 		<module>justamonad-tutorials-immutable-objects</module>
 		<module>justamonad-tutorials-misc</module>
 		<module>justamonad-tutorials-leetcode</module>
+		<module>justamonad-tutorials-io</module>
+		<module>justamonad-tutorials-collections</module>
+		<module>justamonad-tutorials-jackson</module>
+		<module>justamonad-tutorials-refactoring</module>
+		<module>justamonad-tutorials-common</module>
+		<module>justamonad-tutorials-functions</module>
 	</modules>
 </project>
