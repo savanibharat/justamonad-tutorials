@@ -9,7 +9,7 @@ import javax.inject.Named;
 import com.justamonad.tutorials.spring.validators.api.Transaction;
 
 @Named
-public class TransactionValidator implements ValidatorFunction {
+final class TransactionValidator implements ValidatorFunction {
 
 	@Inject
 	private ValidatorErrorBeans validatorErrorBeans;
