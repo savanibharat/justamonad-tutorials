@@ -3,24 +3,20 @@ package com.justamonad.tutorials.spring.validators.api;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.joda.money.Money;
-
 public class Invoice {
 
 	private final LocalDate date;
 	private final InvoiceId invoiceId;
 	private final List<Item> items;
-	private final Money invoiceTotal;
 
-	private Invoice(final LocalDate date, final List<Item> items, final InvoiceId invoiceId, final Money invoiceTotal) {
+	private Invoice(final LocalDate date, final List<Item> items, final InvoiceId invoiceId) {
 		this.date = date;
 		this.items = items;
 		this.invoiceId = invoiceId;
-		this.invoiceTotal = invoiceTotal;
 	}
 
 	public static Invoice of(final LocalDate date, final List<Item> items) {
-		return new Invoice(date, items, InvoiceId.createInvoiceId(), null);
+		return new Invoice(date, items, InvoiceId.createInvoiceId());
 	}
 
 	public LocalDate date() {
@@ -29,10 +25,6 @@ public class Invoice {
 
 	public InvoiceId invoiceId() {
 		return invoiceId;
-	}
-
-	public Money invoiceTotal() {
-		return invoiceTotal;
 	}
 
 	public List<Item> items() {
@@ -73,8 +65,6 @@ public class Invoice {
 		builder.append(invoiceId);
 		builder.append(", items=");
 		builder.append(items);
-		builder.append(", invoiceTotal=");
-		builder.append(invoiceTotal);
 		builder.append("]");
 		return builder.toString();
 	}

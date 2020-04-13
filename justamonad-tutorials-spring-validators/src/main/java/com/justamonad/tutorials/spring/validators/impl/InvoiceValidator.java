@@ -19,11 +19,6 @@ final class InvoiceValidator implements ValidatorFunction {
 		if (transaction != null && transaction.invoice() == null) {
 			return validatorErrorBeans.noInvoice();
 		}
-		
-		if (transaction != null && transaction.invoice() != null 
-				&& transaction.invoice().invoiceTotal() == null) {
-			return validatorErrorBeans.noAmount();
-		}
 		return Collections.emptyList();
 	}
 

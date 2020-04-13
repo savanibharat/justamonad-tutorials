@@ -8,7 +8,7 @@ public class Customer {
 		this.name = Name;
 	}
 
-	public Customer of(Name Name) {
+	public static Customer of(Name Name) {
 		return new Customer(Name);
 	}
 
