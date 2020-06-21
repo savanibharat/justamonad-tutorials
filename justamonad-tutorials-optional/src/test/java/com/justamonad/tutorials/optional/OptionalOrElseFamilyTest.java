@@ -22,7 +22,7 @@ public class OptionalOrElseFamilyTest {
 
 	Money isPresentAndGet(List<Transaction> txns, InvoiceId invoiceId) {
 		Optional<Money> optMoney = txns.stream()
-				.map(txn -> txn.getInvoice())
+				.map(txn -> txn.invoice())
 				.filter(invoice -> invoice.invoiceId().equals(invoiceId))
 				.map(invoice -> invoice.invoiceTotal())
 				.findFirst();
@@ -35,7 +35,7 @@ public class OptionalOrElseFamilyTest {
 	
 	Money orElse(List<Transaction> txns, InvoiceId invoiceId) {
 		Optional<Money> optMoney = txns.stream()
-				.map(txn -> txn.getInvoice())
+				.map(txn -> txn.invoice())
 				.filter(invoice -> invoice.invoiceId().equals(invoiceId))
 				.map(invoice -> invoice.invoiceTotal())
 				.findFirst();
@@ -45,7 +45,7 @@ public class OptionalOrElseFamilyTest {
 	
 	Money orElseGet(List<Transaction> txns, InvoiceId invoiceId) {
 		Optional<Money> optMoney = txns.stream()
-				.map(txn -> txn.getInvoice())
+				.map(txn -> txn.invoice())
 				.filter(invoice -> invoice.invoiceId().equals(invoiceId))
 				.map(invoice -> invoice.invoiceTotal())
 				.findFirst();
@@ -55,7 +55,7 @@ public class OptionalOrElseFamilyTest {
 	
 	Money orElseThrow(List<Transaction> txns, InvoiceId invoiceId) {
 		Optional<Money> optMoney = txns.stream()
-				.map(txn -> txn.getInvoice())
+				.map(txn -> txn.invoice())
 				.filter(invoice -> invoice.invoiceId().equals(invoiceId))
 				.map(invoice -> invoice.invoiceTotal())
 				.findFirst();

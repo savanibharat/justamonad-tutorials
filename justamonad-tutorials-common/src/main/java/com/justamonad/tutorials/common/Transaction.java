@@ -2,84 +2,73 @@ package com.justamonad.tutorials.common;
 
 import static com.justamonad.tutorials.common.JsonConverter.toJsonString;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
+
+import org.joda.money.CurrencyUnit;
+
+import com.neovisionaries.i18n.CountryCode;
 
 /**
  * toString must be in json.
  */
 public class Transaction {
 
-	private final Customer customer;
-	private final Merchant merchant;
 	private final Invoice invoice;
+	private final BigDecimal amount;
+	private final CurrencyUnit currency;
+	private final CountryCode country;
+	private final LocalDate date;
+	private final long transactionId;
+	private final Random random = new Random();
 
-	private Transaction(final Customer customer, final Merchant merchant, final Invoice invoice) {
-		this.customer = customer;
-		this.merchant = merchant;
+	private Transaction(final String country, final Invoice invoice) {
 		this.invoice = invoice;
+		this.amount = invoice.invoiceTotal().getAmount();
+		this.currency = invoice.invoiceTotal().getCurrencyUnit();
+		this.country = CountryCode.getByCode(country);
+		this.date = invoice.date();
+		transactionId = Math.abs(random.nextLong());
+
 	}
 
-	public static Transaction of(final Customer customer, final Merchant merchant, final Invoice invoice) {
-		return new Transaction(Objects.requireNonNull(customer), Objects.requireNonNull(merchant),
-				Objects.requireNonNull(invoice));
+	public static Transaction of(final String country, final Invoice invoice) {
+		Objects.requireNonNull(country);
+		Objects.requireNonNull(invoice);
+		return new Transaction(country, invoice);
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public Merchant getMerchant() {
-		return merchant;
-	}
-
-	public Invoice getInvoice() {
+	public Invoice invoice() {
 		return invoice;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
-		result = prime * result + ((invoice == null) ? 0 : invoice.hashCode());
-		result = prime * result + ((merchant == null) ? 0 : merchant.hashCode());
-		return result;
+	public BigDecimal amount() {
+		return amount;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Transaction other = (Transaction) obj;
-		if (customer == null) {
-			if (other.customer != null)
-				return false;
-		} else if (!customer.equals(other.customer))
-			return false;
-		if (invoice == null) {
-			if (other.invoice != null)
-				return false;
-		} else if (!invoice.equals(other.invoice))
-			return false;
-		if (merchant == null) {
-			if (other.merchant != null)
-				return false;
-		} else if (!merchant.equals(other.merchant))
-			return false;
-		return true;
+	public CurrencyUnit currency() {
+		return currency;
+	}
+
+	public CountryCode country() {
+		return country;
+	}
+
+	public LocalDate date() {
+		return date;
+	}
+	
+	public long transactionId() {
+		return transactionId;
 	}
 
 	@Override
 	public String toString() {
 		Map<String, Object> map = new LinkedHashMap<>();
-		map.put("customer", customer.toString());
-		map.put("merchant", merchant.toString());
 		map.put("invoice", invoice.toString());
 		return toJsonString(map);
 	}

@@ -1,10 +1,10 @@
 package com.justamonad.tutorials.common;
 
 import static java.math.BigDecimal.ZERO;
+import static java.util.Collections.unmodifiableList;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,13 +38,10 @@ public class Invoice {
 		long count = items.stream().map(item -> item.price().getCurrencyUnit()).distinct().count();
 
 		if (count > 1) {
-			throw new IllegalStateException("Multiple currencies in single invoice is not allowed.");
+			throw new IllegalArgumentException("Multiple currencies in single invoice is not allowed.");
 		}
 
-		return new Invoice(
-				date, 
-				Collections.unmodifiableList(new ArrayList<>(items)), 
-				InvoiceId.createInvoiceId(),
+		return new Invoice(date, unmodifiableList(new ArrayList<>(items)), InvoiceId.createInvoiceId(),
 				invoiceTotal(items));
 	}
 

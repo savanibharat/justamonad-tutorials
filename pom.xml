@@ -86,6 +86,31 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.neovisionaries</groupId>
+			<artifactId>nv-i18n</artifactId>
+			<version>1.27</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20200518</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 	<modules>
 		<module>justamonad-tutorials-generics</module>
@@ -104,5 +129,12 @@
 		<module>justamonad-tutorials-functions</module>
 		<module>justamonad-tutorials-spring-validators</module>
 		<module>justamonad-tutorials-vavr</module>
+		<module>justamonad-tutorials-tuple</module>
+		<module>justamonad-tutorials-comparator</module>
+		<module>justamonad-tutorials-functional-lists</module>
+		<module>justamonad-tutorials-object-mapping</module>
+		<module>justamonad-tutorials-properties</module>
+		<module>justamonad-tutorials-response-error-mapping</module>
+		<module>justamonad-tutorials-date-time</module>
 	</modules>
 </project>
