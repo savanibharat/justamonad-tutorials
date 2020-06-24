@@ -39,25 +39,25 @@ public class SpringComparatorsTest {
 	public void nullsLowComparator() {
 		List<Transaction> transactions = Transactions.getDataSet();
 		transactions.add(1, null);
-		ComparatorsTest.print("Before sorting", transactions);
+		JavaComparatorsTest.print("Before sorting", transactions);
 		Comparator<Transaction> comparator = (t1, t2) -> t1.date().compareTo(t2.date());
 		Comparator<Transaction> nullsLow = Comparators.nullsLow(comparator);
 		transactions.sort(nullsLow);
-		ComparatorsTest.print("After sorting", transactions);
+		JavaComparatorsTest.print("After sorting", transactions);
 	}
 	
 	@Test
 	public void nullsLowReveredComparator() {
 		List<Transaction> transactions = Transactions.getDataSet();
 		transactions.add(1, null);
-		ComparatorsTest.print("Before sorting", transactions);
+		JavaComparatorsTest.print("Before sorting", transactions);
 		Comparator<Transaction> comparator = (t1, t2) -> t1.date().compareTo(t2.date());
 		Comparator<Transaction> nullsLow = Comparators.nullsLow(comparator);
 		transactions.sort(nullsLow);
-		ComparatorsTest.print("After sorting", transactions);
+		JavaComparatorsTest.print("After sorting", transactions);
 		Comparator<Transaction> reversed = nullsLow.reversed();
 		transactions.sort(reversed);
-		ComparatorsTest.print("After sorting", transactions);
+		JavaComparatorsTest.print("After sorting", transactions);
 	}
 
 	@Test
@@ -78,11 +78,11 @@ public class SpringComparatorsTest {
 	public void nullsHighCompartor() {
 		List<Transaction> transactions = Transactions.getDataSet();
 		transactions.add(1, null);
-		ComparatorsTest.print("Before sorting", transactions);
+		JavaComparatorsTest.print("Before sorting", transactions);
 		Comparator<Transaction> comparator = (t1, t2) -> t1.date().compareTo(t2.date());
 		Comparator<Transaction> nullsHigh = Comparators.nullsHigh(comparator);
 		transactions.sort(nullsHigh);
-		ComparatorsTest.print("After sorting", transactions);
+		JavaComparatorsTest.print("After sorting", transactions);
 	}
 
 }

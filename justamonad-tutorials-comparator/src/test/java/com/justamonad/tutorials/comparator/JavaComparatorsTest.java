@@ -13,7 +13,7 @@ import org.junit.Test;
 import com.justamonad.tutorials.common.Transaction;
 import com.justamonad.tutorials.common.Transactions;
 
-public class ComparatorsTest {
+public class JavaComparatorsTest {
 
 	@Test
 	public void compareTo() {

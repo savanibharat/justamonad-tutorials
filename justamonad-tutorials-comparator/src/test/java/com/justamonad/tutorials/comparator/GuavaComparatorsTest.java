@@ -15,7 +15,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Comparators;
 
-public class GuavaComparatorTest {
+public class GuavaComparatorsTest {
 
 	@Test
 	public void isInOrderTrueUsingIntegerCompare() {
