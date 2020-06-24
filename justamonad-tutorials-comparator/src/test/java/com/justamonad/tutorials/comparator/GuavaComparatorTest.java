@@ -20,7 +20,6 @@ public class GuavaComparatorTest {
 	@Test
 	public void isInOrderTrueUsingIntegerCompare() {
 		List<Integer> numbers = Arrays.asList(1, 2, 3, 4);
-//		List<Integer> numbers = Arrays.asList(-1,-1,-1,-1);
 		boolean inOrder = Comparators.isInOrder(numbers, Integer::compare);
 		Assert.assertTrue(inOrder);
 	}
