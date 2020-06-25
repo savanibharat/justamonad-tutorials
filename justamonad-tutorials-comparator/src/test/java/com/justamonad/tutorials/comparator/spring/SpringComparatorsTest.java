@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.comparator;
+package com.justamonad.tutorials.comparator.spring;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -10,6 +10,7 @@ import org.springframework.util.comparator.Comparators;
 
 import com.justamonad.tutorials.common.Transaction;
 import com.justamonad.tutorials.common.Transactions;
+import com.justamonad.tutorials.comparator.java.JavaComparatorsTest;
 
 public class SpringComparatorsTest {
 

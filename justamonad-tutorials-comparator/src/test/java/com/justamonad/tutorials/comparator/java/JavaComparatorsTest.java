@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.comparator;
+package com.justamonad.tutorials.comparator.java;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

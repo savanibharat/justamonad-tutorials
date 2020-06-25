@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.comparator;
+package com.justamonad.tutorials.comparator.apache;
 
 import java.time.LocalDate;
 import java.util.Arrays;

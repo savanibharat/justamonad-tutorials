@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.comparator;
+package com.justamonad.tutorials.comparator.guava;
 
 import static java.util.Comparator.naturalOrder;
 import static java.util.Comparator.reverseOrder;
