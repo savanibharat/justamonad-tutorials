@@ -38,22 +38,28 @@ public class JavaComparatorsTest {
 
 	@Test
 	public void reversed() {
+		
+		
 		List<Transaction> transactions = Transactions.getDataSet();
-		print("Before sorting", transactions);
+		
 		Comparator<Transaction> timeComp = (t1, t2) -> t1.date().compareTo(t2.date());
+		
 		Comparator<Transaction> reverseTimeComp = timeComp.reversed();
+		
 		transactions.sort(reverseTimeComp);
+		
+		print("Before sorting", transactions);
 		print("After sorting", transactions);
 	}
 
 	@Test
 	public void thenComparingComparator() {
 		List<Transaction> transactions = Transactions.getDataSet();
-		print("Before sorting", transactions);
 		Comparator<Transaction> countryComp = (t1, t2) -> t1.country().compareTo(t2.country());
 		Comparator<Transaction> timeComp = (t1, t2) -> t1.date().compareTo(t2.date());
 		Comparator<Transaction> thenComparing = countryComp.thenComparing(timeComp);
 		transactions.sort(thenComparing);
+		print("Before sorting", transactions);
 		print("After sorting", transactions);
 	}
 
@@ -163,7 +169,7 @@ public class JavaComparatorsTest {
 		System.out.println(numbers);
 	}
 
-	@Test
+	@org.junit.jupiter.api.Test
 	public void reverseOrder() {
 		List<Integer> numbers = Arrays.asList(56, 73, 42, 3, 7);
 		numbers.sort(Comparator.reverseOrder());

@@ -144,5 +144,8 @@
 		<module>justamonad-tutorials-response-error-mapping</module>
 		<module>justamonad-tutorials-date-time</module>
 		<module>justamonad-tutorials-collectors</module>
+		<module>justamonad-tutorials-guava-collections</module>
+		<module>justamonad-tutorials-lambda-expression</module>
+		<module>justamonad-tutorials-spring</module>
 	</modules>
 </project>
