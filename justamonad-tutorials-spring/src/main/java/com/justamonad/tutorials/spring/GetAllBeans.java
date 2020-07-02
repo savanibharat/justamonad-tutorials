@@ -1,8 +1,6 @@
 package com.justamonad.tutorials.spring;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,11 +21,7 @@ public class GetAllBeans implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		String[] beans = applicationContext.getBeanDefinitionNames();
-		int size = BeanPostProcessorImpl.beans.size();
-		
-		
-		
-		System.out.println(Arrays.asList(beans).containsAll(BeanPostProcessorImpl.beans));
+		Arrays.stream(beans).sorted().forEach(System.out::println);
 	}
 
 }
