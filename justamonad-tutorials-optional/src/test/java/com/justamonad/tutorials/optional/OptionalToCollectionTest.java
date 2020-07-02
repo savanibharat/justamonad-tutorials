@@ -75,7 +75,7 @@ public class OptionalToCollectionTest {
 		collect(optional, collectingAndThen(toSet(), Collections::unmodifiableSet));
 
 		collect(optional, Collectors.toMap(identity(), identity()));
-		collect(optional, collectingAndThen(toMap(identity(), identity()), Collections::unmodifiableMap));
+		collect(optional, collectingAndThen(toMap(val -> val, val -> val), Collections::unmodifiableMap));
 
 	}
 
