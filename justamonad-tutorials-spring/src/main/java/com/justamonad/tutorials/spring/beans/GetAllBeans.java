@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.spring;
+package com.justamonad.tutorials.spring.beans;
 
 import java.util.Arrays;
 

@@ -1,20 +1,22 @@
-package com.justamonad.tutorials.spring;
+package com.justamonad.tutorials.spring.objectmapper;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Named
-public class ReadMultipleObjectMapperUsingnNamed {
+public class ReadMultipleObjectMapperUsingQualifier {
 
 	private final ObjectMapper readObjectMapper;
 	private final ObjectMapper writeObjectMapper;
 
 	@Inject
-	public ReadMultipleObjectMapperUsingnNamed(
-			@Named("readOM") ObjectMapper readObjectMapper,
-			@Named("writeOM") ObjectMapper writeObjectMapper) {
+	public ReadMultipleObjectMapperUsingQualifier(
+			@Qualifier("readOM") ObjectMapper readObjectMapper,
+			@Qualifier("writeOM") ObjectMapper writeObjectMapper) {
 		this.readObjectMapper = readObjectMapper;
 		this.writeObjectMapper = writeObjectMapper;
 	}

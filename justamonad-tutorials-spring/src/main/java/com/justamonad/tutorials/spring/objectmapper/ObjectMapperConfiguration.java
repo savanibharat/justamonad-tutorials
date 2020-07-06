@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.spring;
+package com.justamonad.tutorials.spring.objectmapper;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

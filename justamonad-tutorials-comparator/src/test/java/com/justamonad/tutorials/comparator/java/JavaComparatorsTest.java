@@ -2,10 +2,19 @@ package com.justamonad.tutorials.comparator.java;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -38,16 +47,15 @@ public class JavaComparatorsTest {
 
 	@Test
 	public void reversed() {
-		
-		
+
 		List<Transaction> transactions = Transactions.getDataSet();
-		
+
 		Comparator<Transaction> timeComp = (t1, t2) -> t1.date().compareTo(t2.date());
-		
+
 		Comparator<Transaction> reverseTimeComp = timeComp.reversed();
-		
+
 		transactions.sort(reverseTimeComp);
-		
+
 		print("Before sorting", transactions);
 		print("After sorting", transactions);
 	}
@@ -286,6 +294,227 @@ public class JavaComparatorsTest {
 		Comparator<Transaction> thenComparing = Comparator.comparingDouble(txn -> txn.amount().doubleValue());
 		transactions.sort(thenComparing);
 		printCurrency("Before sorting", transactions);
+	}
+
+	@Test
+	public void mapEntryKeyComparing() {
+		Map<Long, Transaction> txns = Transactions.getDataSet().stream()
+				.collect(Collectors.toMap(Transaction::transactionId, Function.identity()));
+
+		List<Map.Entry<Long, Transaction>> entries = new ArrayList<>(txns.entrySet());
+		entries.forEach(e -> System.out.println(e.getKey() + " " + e.getValue().date() + " " + e.getValue().country()));
+
+		System.out.println();
+
+		entries.sort(Map.Entry.comparingByKey());
+		entries.forEach(e -> System.out.println(e.getKey() + " " + e.getValue().date() + " " + e.getValue().country()));
+
+	}
+
+	@Test
+	public void mapEntryKeyComparingUsingStream() {
+		Map<Long, Transaction> txns = Transactions.getDataSet().stream()
+				.collect(Collectors.toMap(Transaction::transactionId, Function.identity()));
+		txns.forEach((k, v) -> System.out.println(k + " " + v.date() + " " + v.country()));
+
+		System.out.println();
+
+		Function<Entry<Long, Transaction>, Long> keyMapper = entry -> entry.getKey();
+
+		Function<Entry<Long, Transaction>, Transaction> valueMapper = entry -> entry.getValue();
+
+		BinaryOperator<Transaction> mergeFunction = (o1, o2) -> o1;
+
+		Supplier<LinkedHashMap<Long, Transaction>> mapFactory = LinkedHashMap::new;
+
+		Map<Long, Transaction> result = txns.entrySet().stream().sorted(Map.Entry.comparingByKey())
+				.collect(Collectors.toMap(keyMapper, valueMapper, mergeFunction, mapFactory));
+
+		result.forEach((k, v) -> System.out.println(k + " " + v.date() + " " + v.country()));
+
+	}
+
+	@Test
+	public void mapEntryKeyComparingComparator() {
+		Map<Long, Transaction> txns = Transactions.getDataSet().stream()
+				.collect(Collectors.toMap(Transaction::transactionId, Function.identity()));
+		List<Entry<Long, Transaction>> entries = new ArrayList<>(txns.entrySet());
+		entries.forEach(e -> System.out.println(e.getKey() + " " + e.getValue().date() + " " + e.getValue().country()));
+
+		System.out.println();
+		// Below line won't work because of type inference.
+		// https://stackoverflow.com/questions/53325650/what-is-the-type-of-map-entry-comparingbyvalue-reversed/53325732#53325732
+		// Comparator<Entry<Long, Transaction>> reversed =
+		// Entry.comparingByKey().reversed();
+		Comparator<Entry<Long, Transaction>> comparingByKey = Map.Entry.comparingByKey(Comparator.reverseOrder());
+		entries.sort(comparingByKey);
+		entries.forEach(e -> System.out.println(e.getKey() + " " + e.getValue().date() + " " + e.getValue().country()));
+	}
+
+	@Test
+	public void mapEntryKeyComparingComparatorUsingStream() {
+		Map<Long, Transaction> txns = Transactions.getDataSet().stream()
+				.collect(Collectors.toMap(Transaction::transactionId, Function.identity()));
+		List<Entry<Long, Transaction>> entries = new ArrayList<>(txns.entrySet());
+		entries.forEach(e -> System.out.println(e.getKey()));
+
+		System.out.println();
+		// Below line won't work because of type inference.
+		// https://stackoverflow.com/questions/53325650/what-is-the-type-of-map-entry-comparingbyvalue-reversed/53325732#53325732
+		// Comparator<Entry<Long, Transaction>> reversed =
+		// Entry.comparingByKey().reversed();
+		Map<Long, Transaction> result = txns.entrySet().stream()
+				.sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
+				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (o1, o2) -> o1, LinkedHashMap::new));
+
+		result.forEach((k, v) -> System.out.println(k + " " + v.date() + " " + v.country()));
+	}
+
+	@Test
+	public void mapEntryKeyComparingStream() {
+		Map<Long, Transaction> txns = Transactions.getDataSet().stream()
+				.collect(Collectors.toMap(Transaction::transactionId, Function.identity()));
+		txns.forEach((k, v) -> System.out.println(k + " " + v.date()));
+
+		System.out.println();
+
+		Map<Long, Transaction> result = txns.entrySet().stream().sorted(Entry.comparingByKey())
+				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (o1, o2) -> o1, LinkedHashMap::new));
+
+		result.forEach((k, v) -> System.out.println(k + " " + v.date()));
+	}
+
+	// 4
+	@Test
+	public void comparingByValue() {
+		Map<String, String> map = new HashMap<>();
+		map.put("%", "Percent");
+		map.put("*", "Asterisk");
+		map.put("~", "Tilde");
+		map.put("$", "Dollar");
+		map.put("#", "Octothorpe");
+
+		map.forEach((k, v) -> System.out.println(k + " " + v));
+		System.out.println();
+		// after sorting map prints {#=Octothorpe, $=Dollar, %=Percent, *=Asterisk,
+		// ~=Tilde}
+
+		Comparator<Entry<String, String>> comparingByValue = Map.Entry.comparingByValue();
+
+		Map<String, String> result = map.entrySet().stream().sorted(comparingByValue)
+				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (o1, o2) -> o1, LinkedHashMap::new));
+		result.forEach((k, v) -> System.out.println(k + " " + v));
+	}
+
+	// 5
+	@Test
+	public void mapEntryValueComparingComparator() {
+		Map<Long, Transaction> txns = Transactions.getDataSet().stream()
+				.collect(Collectors.toMap(Transaction::transactionId, Function.identity()));
+		List<Entry<Long, Transaction>> entries = new ArrayList<>(txns.entrySet());
+		entries.forEach(e -> System.out.println(e.getKey() + " " + e.getValue().date() + " " + e.getValue().country()));
+
+		System.out.println();
+		// Below line won't work because of type inference.
+		// https://stackoverflow.com/questions/53325650/what-is-the-type-of-map-entry-comparingbyvalue-reversed/53325732#53325732
+		// Comparator<Entry<Long, Transaction>> reversed =
+		// Entry.comparingByKey().reversed();
+
+		Comparator<Entry<Long, Transaction>> comparingByDate = Entry
+				.comparingByValue((Transaction o1, Transaction o2) -> o1.date().compareTo(o2.date()));
+
+		entries.sort(comparingByDate);
+		entries.forEach(e -> System.out.println(e.getKey() + " " + e.getValue().date() + " " + e.getValue().country()));
+	}
+
+	// 6
+	@Test
+	public void mapEntryValueComparingComparatorThenComparing() {
+		Map<Long, Transaction> txns = Transactions.getDataSet().stream()
+				.collect(Collectors.toMap(Transaction::transactionId, Function.identity()));
+		List<Entry<Long, Transaction>> entries = new ArrayList<>(txns.entrySet());
+		entries.forEach(e -> System.out.println(e.getKey() + " " + e.getValue().date() + " " + e.getValue().country()));
+
+		System.out.println();
+		// Below line won't work because of type inference.
+		// https://stackoverflow.com/questions/53325650/what-is-the-type-of-map-entry-comparingbyvalue-reversed/53325732#53325732
+		// Comparator<Entry<Long, Transaction>> reversed =
+		// Entry.comparingByKey().reversed();
+
+		Comparator<Entry<Long, Transaction>> comparingByDate = Entry
+				.comparingByValue((Transaction o1, Transaction o2) -> o1.date().compareTo(o2.date()));
+
+		Comparator<Entry<Long, Transaction>> comparingByCountry = Entry.comparingByValue(
+				(Transaction o1, Transaction o2) -> o1.country().getAlpha2().compareTo(o2.country().getAlpha2()));
+
+		entries.sort(comparingByDate.thenComparing(comparingByCountry));
+		entries.forEach(e -> System.out.println(e.getKey() + " " + e.getValue().date() + " " + e.getValue().country()));
+	}
+	
+	@Test
+	public void mapEntryValueComparingComparatorStream() {
+		Map<Long, Transaction> txns = Transactions.getDataSet().stream()
+				.collect(Collectors.toMap(Transaction::transactionId, Function.identity()));
+		List<Entry<Long, Transaction>> entries = new ArrayList<>(txns.entrySet());
+		entries.forEach(e -> System.out.println(e.getKey() + " " + e.getValue().date() + " " + e.getValue().country()));
+
+		System.out.println();
+
+		Comparator<Entry<Long, Transaction>> comparingByDate = Entry
+				.comparingByValue((Transaction o1, Transaction o2) -> o1.date().compareTo(o2.date()));
+
+		Map<Long, Transaction> result = txns.entrySet().stream()
+				.sorted(comparingByDate)
+				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (o1, o2) -> o1, LinkedHashMap::new));
+
+		result.forEach((k, v) -> System.out.println(k + " " + v.date() + " " + v.country()));
+	}
+
+	@Test
+	public void mapEntryValueComparingComparatorThenComparingStream() {
+		Map<Long, Transaction> txns = Transactions.getDataSet().stream()
+				.collect(Collectors.toMap(Transaction::transactionId, Function.identity()));
+		
+		List<Entry<Long, Transaction>> entries = new ArrayList<>(txns.entrySet());
+		entries.forEach(e -> System.out.println(e.getKey() + " " + e.getValue().date() + " " + e.getValue().country()));
+
+		System.out.println();
+
+		Comparator<Entry<Long, Transaction>> comparingByDate = Entry
+				.comparingByValue((Transaction o1, Transaction o2) -> o1.date().compareTo(o2.date()));
+
+		Comparator<Entry<Long, Transaction>> comparingByCountry = Entry.comparingByValue(
+				(Transaction o1, Transaction o2) -> o1.country().getAlpha2().compareTo(o2.country().getAlpha2()));
+
+		Map<Long, Transaction> result = txns.entrySet().stream()
+				.sorted(comparingByDate.thenComparing(comparingByCountry))
+				.collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (o1, o2) -> o1, LinkedHashMap::new));
+
+		result.forEach((k, v) -> System.out.println(k + " " + v.date()));
+	}
+
+	@Test
+	public void mapEntryValueComparingComparatorThenComparingStreamUnModifiableMap() {
+		Map<Long, Transaction> txns = Transactions.getDataSet().stream()
+				.collect(Collectors.toMap(Transaction::transactionId, Function.identity()));
+		List<Entry<Long, Transaction>> entries = new ArrayList<>(txns.entrySet());
+		entries.forEach(e -> System.out.println(e.getKey() + " " + e.getValue().date() + " " + e.getValue().country()));
+
+		System.out.println();
+
+		Comparator<Entry<Long, Transaction>> comparingByDate = Entry
+				.comparingByValue((Transaction o1, Transaction o2) -> o1.date().compareTo(o2.date()));
+
+		Comparator<Entry<Long, Transaction>> comparingByCountry = Entry.comparingByValue(
+				(Transaction o1, Transaction o2) -> o1.country().getAlpha2().compareTo(o2.country().getAlpha2()));
+
+		Map<Long, Transaction> result = txns.entrySet().stream()
+				.sorted(comparingByDate.thenComparing(comparingByCountry))
+				.collect(Collectors.collectingAndThen(
+						Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (o1, o2) -> o1, LinkedHashMap::new),
+						Collections::unmodifiableMap));
+
+		result.forEach((k, v) -> System.out.println(k + " " + v.date()));
 	}
 
 	public static void print(String message, List<Transaction> transactions) {
