@@ -2,8 +2,10 @@ package com.justamonad.tutorials.spring.rest;
 
 import java.util.Map;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,8 +19,20 @@ public interface IHello {
 	 * Returns {@link HttpStatus#OK} if headers are present else returns
 	 * {@link HttpStatus#BAD_REQUEST}.
 	 */
-	@RequestMapping(method = RequestMethod.GET, path = "/all-headers")
+	@RequestMapping(method = RequestMethod.GET, path = "/all-headers-map")
 	public ResponseEntity<String> sayHelloAllHeaders(@RequestHeader Map<String, String> headers);
+
+	/**
+	 * @see #sayHelloAllHeaders(Map)
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/all-headers-multi-map")
+	public ResponseEntity<String> sayHelloAllHeaders(@RequestHeader MultiValueMap<String, String> headers);
+
+	/**
+	 * @see #sayHelloAllHeaders(Map)
+	 */
+	@RequestMapping(method = RequestMethod.GET, path = "/all-headers-httpheaders")
+	public ResponseEntity<String> sayHelloAllHeaders(@RequestHeader HttpHeaders headers);
 
 	/**
 	 * Returns the{@link HttpStatus#OK}.
@@ -27,15 +41,15 @@ public interface IHello {
 	 * {@link HttpStatus#BAD_REQUEST}.
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/one-header")
-	public ResponseEntity<String> sayHelloSpecificHeader(@RequestHeader(name = "Request-ID") String requestId);
+	public ResponseEntity<String> sayHelloSpecificHeader(@RequestHeader(name = "request-id") String requestId);
 
 	/**
-	 * Returns {@link HttpStatus#OK} if Request-ID header is present else returns
-	 * {@link HttpStatus#BAD_REQUEST}.
+	 * Returns {@link HttpStatus#OK} along with request-id if request-id header is
+	 * present else returns {@link HttpStatus#OK} and null request-id.
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/optional-header")
 	public ResponseEntity<String> sayHelloOptionalHeaderNotRequired(
-			@RequestHeader(name = "some-header", required = false) String someHeader);
+			@RequestHeader(name = "request-id", required = false) String requestId);
 
 	/**
 	 * Returns {@link HttpStatus#OK} with the value of header in request. If the
@@ -43,6 +57,6 @@ public interface IHello {
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/optional-header-default-value")
 	public ResponseEntity<String> sayHelloOptionalHeaderDefaultValue(
-			@RequestHeader(name = "some-header", defaultValue = "some-header-default-value") String someHeader);
+			@RequestHeader(name = "request-id", defaultValue = "default-value") String requestId);
 
 }
