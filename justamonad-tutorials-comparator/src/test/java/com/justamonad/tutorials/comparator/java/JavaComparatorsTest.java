@@ -189,7 +189,7 @@ public class JavaComparatorsTest {
 	public void naturalOrder() {
 		List<Integer> numbers = Arrays.asList(56, 73, 42, 3, 7);
 		numbers.sort(Comparator.naturalOrder());
-		Assert.assertEquals(Arrays.asList(73, 56, 42, 7, 3), numbers);
+		Assert.assertEquals(Arrays.asList(3, 7, 42, 56, 73), numbers);
 		System.out.println(numbers);
 	}
 

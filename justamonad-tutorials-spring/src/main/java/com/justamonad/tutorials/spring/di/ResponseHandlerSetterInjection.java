@@ -5,7 +5,7 @@ import javax.inject.Named;
 import javax.ws.rs.core.Response;
 
 @Named
-public class ResponseHandler {
+public class ResponseHandlerSetterInjection {
 
 	private ErrorHandler errorHandler;
 

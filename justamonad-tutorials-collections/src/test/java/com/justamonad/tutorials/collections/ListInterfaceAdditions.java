@@ -1,7 +1,7 @@
 package com.justamonad.tutorials.collections;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;

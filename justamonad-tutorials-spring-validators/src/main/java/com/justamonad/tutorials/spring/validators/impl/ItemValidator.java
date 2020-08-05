@@ -7,8 +7,6 @@ import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.springframework.util.CollectionUtils;
-
 import com.justamonad.tutorials.spring.validators.api.Item;
 import com.justamonad.tutorials.spring.validators.api.Transaction;
 
@@ -20,16 +18,15 @@ final class ItemValidator implements ValidatorFunction {
 
 	@Override
 	public List<ErrorData> apply(Transaction transaction) {
-		if (transaction != null && transaction.invoice() != null
-				&& !CollectionUtils.isEmpty(transaction.invoice().items())) {
-			return transaction.invoice().items().stream()
-					.map(Item::price)
-					.filter(Objects::isNull)
-					.findAny()
-					.map(money -> validatorErrorBeans.noAmount())
-					.orElseGet(Collections::emptyList);
+
+		if (transaction.invoice().items() == null || transaction.invoice().items().isEmpty()) {
+			return validatorErrorBeans.noItems();
 		}
-		return Collections.emptyList();
+
+		List<ErrorData> itemValidationErrors = transaction.invoice().items().stream().map(Item::price).filter(Objects::isNull).findAny()
+				.map(money -> validatorErrorBeans.noAmount()).orElseGet(Collections::emptyList);
+		
+		return itemValidationErrors;
 	}
 
 }

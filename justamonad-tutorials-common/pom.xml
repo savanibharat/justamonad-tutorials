@@ -11,6 +11,5 @@
 	</parent>
 	<artifactId>justamonad-tutorials-common</artifactId>
 	<name>justamonad-tutorials-common</name>
-	<packaging>jar</packaging>
 	<url>http://maven.apache.org</url>
 </project>

@@ -1,6 +1,7 @@
 package com.justamonad.tutorials.spring.di;
 
 import javax.inject.Named;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status.Family;
 
@@ -9,7 +10,8 @@ public class ErrorHandler {
 
 	public void handleError(Response response) {
 		if (response.getStatusInfo().getFamily() != Family.SUCCESSFUL) {
-			throw new IllegalStateException();
+			final int statusCode = response.getStatusInfo().getStatusCode();
+			throw new WebApplicationException(statusCode);
 		}
 		// else do nothing.
 	}

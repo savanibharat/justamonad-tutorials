@@ -159,6 +159,7 @@
 		<module>justamonad-tutorials-lambda-expression</module>
 		<module>justamonad-tutorials-spring</module>
 		<module>justamonad-tutorials-singleton-prototype-injection</module>
+		<module>justamonad-tutorials-spring-dependency-injection</module>
 	</modules>
 
 	<build>
