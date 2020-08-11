@@ -38,7 +38,7 @@ public class Transaction {
 
 	public static Transaction of(final String country, final Invoice invoice) {
 		Objects.requireNonNull(country);
-		Objects.requireNonNull(invoice);
+//		Objects.requireNonNull(invoice);
 		return new Transaction(country, invoice);
 	}
 

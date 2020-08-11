@@ -5,7 +5,7 @@ import javax.inject.Named;
 import com.justamonad.tutorials.misc.TransactionRequest;
 
 @Named
-public class TransactionItemsAmountValidator {
+public class TransactionItemsAmountValidator implements ReqValidator {
 
 	public boolean validate(TransactionRequest transactionRequest) {
 		if (transactionRequest.getTransaction() == null) {
