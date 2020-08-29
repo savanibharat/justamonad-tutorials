@@ -13,10 +13,11 @@ public class FakeInvoiceWebTarget implements WebTarget {
 
 	private String invoiceId;
 	private final String path;
-	
+
 	public FakeInvoiceWebTarget(String path) {
 		this.path = path;
 	}
+
 	@Override
 	public Configuration getConfiguration() {
 		// TODO Auto-generated method stub
@@ -97,11 +98,7 @@ public class FakeInvoiceWebTarget implements WebTarget {
 
 	@Override
 	public WebTarget path(String path) {
-		// manipulate the path using invoice id.
-		/// v2/invoicing/invoices/{invoice_id}
-		String[] arr = path.split("///");
-		invoiceId = arr[arr.length - 1];
-		return this;
+		return null;
 	}
 
 	@Override

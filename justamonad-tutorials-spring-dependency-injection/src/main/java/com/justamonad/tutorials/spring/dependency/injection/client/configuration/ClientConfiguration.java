@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Scope;
 public class ClientConfiguration {
 
 	@Bean
-	public Function<String, WebTarget> beanFactory() {
+	public Function<String, WebTarget> clientFactory() {
 		return name -> client(name);
 	}
 

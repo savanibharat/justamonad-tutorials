@@ -15,15 +15,22 @@ import com.justamonad.tutorials.spring.dependency.injection.api.InvoiceResponse;
 @Scope("request")
 public class InvoiceClientImpl implements IInvoiceClient {
 
-	@Inject
-	private Function<String, WebTarget> clientFactory;
+	private static final String INVOICE_TARGET = "v2/invoicing/invoices/";
+
+	private final Function<String, WebTarget> clientFactory;
+	private final ErrorHandler errorHandler;
 
 	@Inject
-	private ErrorHandler errorHandler;
+	public InvoiceClientImpl(
+			Function<String, WebTarget> clientFactory, 
+			ErrorHandler errorHandler) {
+		this.clientFactory = clientFactory;
+		this.errorHandler = errorHandler;
+	}
 
 	@Override
 	public InvoiceResponse getInvoice(String invoiceId) {
-		WebTarget webTarget = clientFactory.apply("v2/invoicing/invoices/" + invoiceId);
+		WebTarget webTarget = clientFactory.apply(INVOICE_TARGET + invoiceId);
 		Response response = webTarget.request().get();
 		errorHandler.handleError(response);
 		return response.readEntity(InvoiceResponse.class);

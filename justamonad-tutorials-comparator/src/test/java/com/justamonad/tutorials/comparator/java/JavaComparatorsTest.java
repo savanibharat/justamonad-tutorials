@@ -177,7 +177,7 @@ public class JavaComparatorsTest {
 		System.out.println(numbers);
 	}
 
-	@org.junit.jupiter.api.Test
+	@Test
 	public void reverseOrder() {
 		List<Integer> numbers = Arrays.asList(56, 73, 42, 3, 7);
 		numbers.sort(Comparator.reverseOrder());

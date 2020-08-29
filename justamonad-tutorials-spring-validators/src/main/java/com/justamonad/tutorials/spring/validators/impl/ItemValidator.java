@@ -23,7 +23,8 @@ final class ItemValidator implements ValidatorFunction {
 			return validatorErrorBeans.noItems();
 		}
 
-		List<ErrorData> itemValidationErrors = transaction.invoice().items().stream().map(Item::price).filter(Objects::isNull).findAny()
+		List<ErrorData> itemValidationErrors = transaction.invoice().items().stream().map(Item::price)
+				.filter(Objects::isNull).findAny()
 				.map(money -> validatorErrorBeans.noAmount()).orElseGet(Collections::emptyList);
 		
 		return itemValidationErrors;
