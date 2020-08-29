@@ -7,17 +7,20 @@ import javax.inject.Inject;
 
 import com.justamonad.tutorials.spring.validators.api.Transaction;
 
-final class InvoiceValidator implements ValidatorFunction {
+//@Named
+public class InvoiceValidator implements ValidatorFunction {
+
+	private final List<ErrorData> noInvoice;
 
 	@Inject
-	private ValidatorErrorBeans validatorErrorBeans;
+	public InvoiceValidator(// @Named("emptyInvoice")
+			List<ErrorData> noInvoice) {
+		this.noInvoice = noInvoice;
+	}
 
 	@Override
 	public List<ErrorData> apply(Transaction transaction) {
-		if (transaction.invoice() == null) {
-			return validatorErrorBeans.noInvoice();
-		}
-		return Collections.emptyList();
+		return transaction.invoice() == null ? noInvoice : Collections.emptyList();
 	}
 
 }

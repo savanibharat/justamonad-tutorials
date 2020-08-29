@@ -6,42 +6,50 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
+ * <p>
  * {@link ValidatorErrorBeans} is used to return ErrorData for specific
  * validation failures.
+ * </p>
  * 
+ * <p>
+ * Why do we exactly need this class? Can't we just create it when the
+ * validation fails? Yes, you can but for every failure you will create new
+ * objects with same data. Seems like a waste.
+ * </p>
+ * 
+ * <p>
  * We need not create this failures on the fly. We can just create them as Beans
  * and let Spring IOC Container take care of it.
+ * </p>
  * 
+ * <p>
  * When the Spring Boot server boots up this Beans are initialized and managed
  * by {@link ApplicationContext}. We just need to use them using injection.
- * 
+ * </p>
  */
 @Configuration
-class ValidatorErrorBeans {
+public class ValidatorErrorBeans {
 
-	@Bean
-	List<ErrorData> noInvoice() {
-		return Collections.singletonList(ErrorData.of("Invoice is empty", "invoice"));
+	@Bean("emptyInvoice")
+	public List<ErrorData> noInvoice() {
+		return Collections.singletonList(ErrorData.of("Invoice not specified", "invoice"));
 	}
 
-	@Bean
-	List<ErrorData> noItems() {
-		return Collections.singletonList(ErrorData.of("Items is empty", "items"));
+	@Bean("emptyItems")
+	public List<ErrorData> noItems() {
+		return Collections.singletonList(ErrorData.of("Items not specified.", "items"));
 	}
 
-	@Bean
-	List<ErrorData> noAmount() {
+	@Bean("emptyAmount")
+	public List<ErrorData> noAmount() {
 		return Collections.singletonList(ErrorData.of("Amount not specified", "amount"));
 	}
 
-	@Bean
-	List<ErrorData> noTransaction() {
-		return Collections.singletonList(ErrorData.of("Transaction not specified", "transaction"));
+	@Bean("emptyTransaction")
+	public List<ErrorData> noTransaction() {
+		return Collections.singletonList(ErrorData.of("Transaction not specified.", "transaction"));
 	}
-
+	
 }
