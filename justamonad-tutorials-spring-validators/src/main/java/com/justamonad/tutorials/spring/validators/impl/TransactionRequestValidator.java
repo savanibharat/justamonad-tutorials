@@ -1,8 +1,6 @@
 package com.justamonad.tutorials.spring.validators.impl;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -13,8 +11,12 @@ import com.justamonad.tutorials.spring.validators.api.Transaction;
 @Named
 public final class TransactionRequestValidator {
 
+	private final List<ValidatorFunction> validatorFunctions;
+	
 	@Inject
-	private List<ValidatorFunction> validatorFunctions;
+	public TransactionRequestValidator(List<ValidatorFunction> validatorFunctions) {
+		this.validatorFunctions = validatorFunctions;
+	}
 
 	public void validate(Transaction transaction) {
 
@@ -22,8 +24,8 @@ public final class TransactionRequestValidator {
 				.stream()
 				.map(validatorFunction -> validatorFunction.apply(transaction))
 				.filter(errors -> !errors.isEmpty())
-				.flatMap(Collection::stream)
-				.collect(Collectors.toList());
+				.findFirst()
+				.get();
 		
 		if (!errorDatas.isEmpty()) {
 			throw new RequestValidationException(errorDatas.toString());

@@ -4,17 +4,17 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import com.justamonad.tutorials.spring.validators.api.Transaction;
 
-//@Named
+@Named
 public class InvoiceValidator implements ValidatorFunction {
 
 	private final List<ErrorData> noInvoice;
 
 	@Inject
-	public InvoiceValidator(// @Named("emptyInvoice")
-			List<ErrorData> noInvoice) {
+	public InvoiceValidator(@Named("emptyInvoice") List<ErrorData> noInvoice) {
 		this.noInvoice = noInvoice;
 	}
 

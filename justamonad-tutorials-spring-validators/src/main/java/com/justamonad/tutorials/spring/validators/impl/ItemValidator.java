@@ -17,7 +17,9 @@ public class ItemValidator implements ValidatorFunction {
 	private final List<ErrorData> noAmount;
 
 	@Inject
-	public ItemValidator(@Named("emptyItems") List<ErrorData> noItems, @Named("emptyAmount") List<ErrorData> noAmount) {
+	public ItemValidator(
+			@Named("emptyItems") List<ErrorData> noItems, 
+			@Named("emptyAmount") List<ErrorData> noAmount) {
 		this.noItems = noItems;
 		this.noAmount = noAmount;
 	}
