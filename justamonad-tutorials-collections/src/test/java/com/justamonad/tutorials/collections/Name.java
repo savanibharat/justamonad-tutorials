@@ -1,31 +1,26 @@
-package com.justamonad.tutorials.common;
+package com.justamonad.tutorials.collections;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Name {
+public class Name implements Serializable, Comparable<Name> {
+
+	private static final long serialVersionUID = -7470957962267746723L;
 
 	private final String firstName;
 	private final String lastName;
 
-	private Name(final String firstName, final String lastName) {
+	private static final String FIRST_NAME_ERR = "invalid firstName";
+	private static final String LAST_NAME_ERR = "invalid lastName";
+
+	public Name(String firstName, String lastName) {
+		Objects.requireNonNull(firstName, FIRST_NAME_ERR);
+		Objects.requireNonNull(lastName, LAST_NAME_ERR);
+
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
 
-	/**
-	 * Static factory that creates new Name with firstName and lastName.
-	 * 
-	 * @param firstName
-	 * @param lastName
-	 * 
-	 * @throws NullPointerException
-	 *             if firstName or lastName is null
-	 * 
-	 */
-	public static Name of(final String firstName, final String lastName) {
-		return new Name(Objects.requireNonNull(firstName), Objects.requireNonNull(lastName));
-	}
-	
 	public String firstName() {
 		return firstName;
 	}
@@ -33,6 +28,16 @@ public class Name {
 	public String lastName() {
 		return lastName;
 	}
+	
+	@Override
+	public int compareTo(Name that) {
+		int compare = this.firstName.compareTo(that.firstName);
+		if(compare == 0) {
+			compare = this.lastName.compareTo(that.lastName);
+		}
+		return compare;
+	}
+
 
 	@Override
 	public int hashCode() {
