@@ -5,7 +5,8 @@ import org.junit.Test;
 class ListsTest {
 
 	@Test
-	void test() {
+	public void test() {
+		
 		
 	}
 
