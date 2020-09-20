@@ -484,7 +484,6 @@ public class HashMapTest {
 		Map<Long, Transaction> transactions = new HashMap<>();
 		transactions.put(null, null);
 		Assert.assertEquals(1, transactions.size());
-		// hashcode 333740093
 		Assert.assertTrue(transactions.hashCode() == 0);
 	}
 
