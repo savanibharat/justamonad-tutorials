@@ -25,6 +25,14 @@ public class Name {
 	public static Name of(final String firstName, final String lastName) {
 		return new Name(Objects.requireNonNull(firstName), Objects.requireNonNull(lastName));
 	}
+	
+	public String firstName() {
+		return firstName;
+	}
+
+	public String lastName() {
+		return lastName;
+	}
 
 	@Override
 	public int hashCode() {

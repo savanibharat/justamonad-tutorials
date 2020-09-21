@@ -12,4 +12,14 @@
 	<artifactId>justamonad-tutorials-common</artifactId>
 	<name>justamonad-tutorials-common</name>
 	<url>http://maven.apache.org</url>
+	
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+			<version>4.12</version>
+		</dependency>
+	</dependencies>
+	
 </project>

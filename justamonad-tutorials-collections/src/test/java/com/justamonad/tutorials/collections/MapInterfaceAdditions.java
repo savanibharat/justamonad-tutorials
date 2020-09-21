@@ -4,10 +4,11 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import com.justamonad.tutorials.common.Transaction;
 
+@SuppressWarnings("unused")
 public class MapInterfaceAdditions {
 
     // Transactions.getDataSet().stream()
@@ -330,7 +331,7 @@ public class MapInterfaceAdditions {
         Entry<String, Integer> entry = Map.entry("Jon", 3);
     }
 
-    @Test
+	@Test
     public void copyOfTest() {
         Map<String, Integer> map = new HashMap<>();
         map.put("Bran", 4);

@@ -7,9 +7,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>com.justamonad.tutorials</groupId>
   <artifactId>justamonad-tutorials-guava-collections</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
 
   <name>justamonad-tutorials-guava-collections</name>
   <!-- FIXME change it to the project's website -->
@@ -25,7 +23,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

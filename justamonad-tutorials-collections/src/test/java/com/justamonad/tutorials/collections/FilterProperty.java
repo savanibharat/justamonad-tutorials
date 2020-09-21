@@ -1,13 +1,12 @@
 package com.justamonad.tutorials.collections;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
+
+import org.junit.Test;
+
+//import org.junit.jupiter.api.Test;
 
 public class FilterProperty {
 

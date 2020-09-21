@@ -15,7 +15,7 @@ import java.util.stream.StreamSupport;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import com.justamonad.tutorials.common.Transaction;
 import com.justamonad.tutorials.common.Transactions;
@@ -157,8 +157,7 @@ class ListInterfaceAdditions {
 				.collect(Collectors.toMap(name -> name, name -> name.length()));
 		System.out.println(nameWithLengths);
 
-		nameWithLengths = names.stream().collect(
-				Collectors.toMap(Function.identity(), String::length));
+		nameWithLengths = names.stream().collect(Collectors.toMap(Function.identity(), String::length));
 		System.out.println(nameWithLengths);
 	}
 

@@ -1,11 +1,12 @@
 package com.justamonad.tutorials.guava.collections;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 class ListsTest {
 
 	@Test
-	void test() {
+	public void test() {
+		
 		
 	}
 

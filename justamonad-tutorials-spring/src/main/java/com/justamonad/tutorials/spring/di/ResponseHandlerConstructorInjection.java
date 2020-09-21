@@ -8,18 +8,21 @@ import javax.ws.rs.core.Response;
 public class ResponseHandlerConstructorInjection {
 
 	private final ErrorHandler errorHandler;
+	private final ClientResponseConverter clientResponseConverter;
 
 	@Inject
-	public ResponseHandlerConstructorInjection(ErrorHandler errorHandler) {
+	public ResponseHandlerConstructorInjection(ErrorHandler errorHandler,
+			ClientResponseConverter clientResponseConverter) {
 		this.errorHandler = errorHandler;
+		this.clientResponseConverter = clientResponseConverter;
 	}
 
-	public Response handleResponse(Response response) {
+	public ClientResponseDTO handleResponse(Response response) {
 		errorHandler.handleError(response);
 
 		ClientResponse clientResponse = response.readEntity(ClientResponse.class);
-
-		return Response.ok().entity(clientResponse).build();
+		// convert clientResponse to domain object and return.
+		return clientResponseConverter.convert(clientResponse);
 	}
 
 }

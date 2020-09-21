@@ -50,7 +50,6 @@ public class InvoiceClientTestMockito {
 	@Before
 	public void setup() {
 		Mockito.when(clientFactory.apply(ArgumentMatchers.anyString())).thenReturn(webTarget);
-//		Mockito.when(webTarget.path(ArgumentMatchers.anyString())).thenReturn(webTarget);
 		Mockito.when(webTarget.request()).thenReturn(builder);
 	}
 
@@ -58,9 +57,6 @@ public class InvoiceClientTestMockito {
 	public void testGetInvoiceSuccess() {
 		Mockito.when(builder.get()).thenReturn(response);
 		Mockito.when(response.readEntity(InvoiceResponse.class)).thenReturn(get200Response());
-//		Mockito.when(response.getStatus()).thenReturn(200);
-//		Mockito.when(response.getStatusInfo()).thenReturn(statusType);
-//		Mockito.when(statusType.getFamily()).thenReturn(Response.Status.Family.SUCCESSFUL);
 
 		InvoiceResponse invoice = invoiceClientImpl.getInvoice("200");
 		Assert.assertEquals("200", invoice.getInvoiceId());

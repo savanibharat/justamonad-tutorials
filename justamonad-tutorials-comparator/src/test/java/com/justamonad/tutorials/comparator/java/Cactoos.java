@@ -1,6 +1,6 @@
 package com.justamonad.tutorials.comparator.java;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 class Cactoos {
 

@@ -8,9 +8,7 @@
 		<artifactId>justamonad-tutorials</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.justamonad.tutorials</groupId>
 	<artifactId>justamonad-tutorials-object-mapping</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>justamonad-tutorials-object-mapping</name>
 	<url>http://maven.apache.org</url>
 	<properties>

@@ -8,6 +8,10 @@ import javax.ws.rs.core.Response.Status.Family;
 @Named
 public class ErrorHandler {
 
+	/**
+	 * @throws WebApplicationException if response is 
+	 * not {@link Family#SUCCESSFUL}.
+	 */
 	public void handleError(Response response) {
 		if (response.getStatusInfo().getFamily() != Family.SUCCESSFUL) {
 			final int statusCode = response.getStatusInfo().getStatusCode();

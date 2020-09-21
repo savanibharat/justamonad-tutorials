@@ -1,5 +1,5 @@
-package com.justamonad.tutorials.aop;
-
-public @interface Loggable {
-
-}
+//package com.justamonad.tutorials.aop;
+//
+//public @interface Loggable {
+//
+//}
