@@ -7,27 +7,44 @@ import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.core.annotation.Order;
+
 import com.justamonad.tutorials.spring.validators.api.Item;
 import com.justamonad.tutorials.spring.validators.api.Transaction;
 
 @Named
-final class ItemValidator implements ValidatorFunction {
+@Order(3)
+public class ItemValidator implements ValidatorFunction {
+
+	private final List<ErrorData> noItems;
+	private final List<ErrorData> noAmount;
 
 	@Inject
-	private ValidatorErrorBeans validatorErrorBeans;
+	public ItemValidator(
+			@Named("emptyItems") List<ErrorData> noItems, 
+			@Named("emptyAmount") List<ErrorData> noAmount) {
+		this.noItems = noItems;
+		this.noAmount = noAmount;
+	}
 
 	@Override
 	public List<ErrorData> apply(Transaction transaction) {
-
-		if (transaction.invoice().items() == null || transaction.invoice().items().isEmpty()) {
-			return validatorErrorBeans.noItems();
-		}
-
-		List<ErrorData> itemValidationErrors = transaction.invoice().items().stream().map(Item::price)
-				.filter(Objects::isNull).findAny()
-				.map(money -> validatorErrorBeans.noAmount()).orElseGet(Collections::emptyList);
 		
-		return itemValidationErrors;
+		if(transaction.invoice().items() == null
+				|| transaction.invoice().items().isEmpty()) {
+			return noItems;
+		}
+		
+		long count = transaction.invoice().items()
+				.stream()
+				.map(Item::price)
+				.filter(Objects::nonNull)
+				.count();
+		
+		return count == transaction.invoice().items().size()
+				? Collections.emptyList()
+				: noAmount;
+		
 	}
 
 }

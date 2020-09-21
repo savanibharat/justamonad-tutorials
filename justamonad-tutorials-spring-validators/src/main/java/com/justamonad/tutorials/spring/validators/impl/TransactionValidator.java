@@ -4,19 +4,26 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.springframework.core.annotation.Order;
 
 import com.justamonad.tutorials.spring.validators.api.Transaction;
 
-final class TransactionValidator implements ValidatorFunction {
+@Named
+@Order(1)
+public class TransactionValidator implements ValidatorFunction {
+
+	private final List<ErrorData> noTransaction;
 
 	@Inject
-	private ValidatorErrorBeans validatorErrorBeans;
+	public TransactionValidator(@Named("emptyTransaction") List<ErrorData> noTransaction) {
+		this.noTransaction = noTransaction;
+	}
 
 	@Override
 	public List<ErrorData> apply(Transaction transaction) {
-		return transaction == null 
-				? validatorErrorBeans.noTransaction() 
-				: Collections.emptyList();
+		return transaction == null ? noTransaction : Collections.emptyList();
 	}
 
 }
