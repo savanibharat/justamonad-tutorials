@@ -7,10 +7,13 @@ import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.core.annotation.Order;
+
 import com.justamonad.tutorials.spring.validators.api.Item;
 import com.justamonad.tutorials.spring.validators.api.Transaction;
 
 @Named
+@Order(3)
 public class ItemValidator implements ValidatorFunction {
 
 	private final List<ErrorData> noItems;
@@ -32,11 +35,15 @@ public class ItemValidator implements ValidatorFunction {
 			return noItems;
 		}
 		
-		return transaction.invoice().items()
+		long count = transaction.invoice().items()
 				.stream()
 				.map(Item::price)
-				.filter(Objects::isNull)
-				.findAny().map(money -> noAmount).orElseGet(Collections::emptyList);
+				.filter(Objects::nonNull)
+				.count();
+		
+		return count == transaction.invoice().items().size()
+				? Collections.emptyList()
+				: noAmount;
 		
 	}
 

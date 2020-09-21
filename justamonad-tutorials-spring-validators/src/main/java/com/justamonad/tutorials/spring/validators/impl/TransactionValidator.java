@@ -6,9 +6,12 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.springframework.core.annotation.Order;
+
 import com.justamonad.tutorials.spring.validators.api.Transaction;
 
 @Named
+@Order(1)
 public class TransactionValidator implements ValidatorFunction {
 
 	private final List<ErrorData> noTransaction;
