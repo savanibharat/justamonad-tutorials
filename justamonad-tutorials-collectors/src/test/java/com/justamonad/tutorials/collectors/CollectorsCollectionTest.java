@@ -396,7 +396,7 @@ public class CollectorsCollectionTest {
 
 		Set<Long> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
 				.map(txn -> txn.transactionId())
-				.collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.reverseOrder())));
+				.collect(Collectors.toCollection(() -> new TreeSet<Long>(Comparator.reverseOrder())));
 		System.out.println();
 		result.forEach(System.out::println);
 
@@ -427,7 +427,7 @@ public class CollectorsCollectionTest {
 
 		PriorityQueue<Long> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
 				.map(txn -> txn.transactionId())
-				.collect(Collectors.toCollection(() -> new PriorityQueue<>(Comparator.reverseOrder())));
+				.collect(Collectors.toCollection(() -> new PriorityQueue<Long>(Comparator.reverseOrder())));
 		System.out.println();
 		result.forEach(System.out::println);
 
@@ -442,7 +442,7 @@ public class CollectorsCollectionTest {
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
 		List<Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-				.collect(Collectors.toCollection(() -> new ArrayList<>(20)));
+				.collect(Collectors.toCollection(() -> new ArrayList<Transaction>(20)));
 		System.out.println();
 		result.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
