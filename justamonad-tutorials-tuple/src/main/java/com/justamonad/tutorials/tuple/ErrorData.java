@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.spring.validators.impl;
+package com.justamonad.tutorials.tuple;
 
 import java.util.Arrays;
 import java.util.Collections;

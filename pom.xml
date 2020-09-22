@@ -19,10 +19,6 @@
 	<name>justamonad-tutorials</name>
 	<url>http://maven.apache.org</url>
 
-	<!-- <properties> <java.version>12</java.version> <maven.compiler.release>12</maven.compiler.release> 
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <maven.compiler.source>12</maven.compiler.source> 
-		<maven.compiler.target>12</maven.compiler.target> </properties> -->
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -189,6 +185,7 @@
 		<module>justamonad-tutorials-annotation</module>
 		<module>justamonad-tutorials-aop</module>
 		<module>justamonad-tutorials-reactive</module>
+		<module>justamonad-tutorials-tuple-validators</module>
 	</modules>
 
 	<build>
