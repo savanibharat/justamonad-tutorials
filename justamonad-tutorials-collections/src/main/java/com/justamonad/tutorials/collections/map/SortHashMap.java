@@ -9,8 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.checkerframework.checker.units.qual.K;
-
 public class SortHashMap {
 
 	public Map<String, Integer> inputMap() {

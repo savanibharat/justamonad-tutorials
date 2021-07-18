@@ -13,7 +13,7 @@ import com.justamonad.tutorials.common.Item;
 import com.justamonad.tutorials.common.Transaction;
 import com.justamonad.tutorials.common.Transactions;
 
-public class CollectorsJoiningTest {
+public class JoiningTest {
 
 	@Test
 	public void joiningWithoutStream() {

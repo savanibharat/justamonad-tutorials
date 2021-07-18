@@ -9,6 +9,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collector.Characteristics;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.junit.Assert;
@@ -38,6 +39,17 @@ public class BasicCollectorsTest {
 
 		Assert.assertFalse(result.isEmpty());
 
+	}
+
+	/**
+	 * Try making the collector unordered and concurrent, it will fail.
+	 * */
+	@Test
+	public void testIntegerListUsingCollectors() {
+		List<Integer> result = IntStream.range(1, 10_000).boxed().parallel()
+				.collect(new ArrayListCollectorImpl<Integer>());
+
+		Assert.assertFalse(result.isEmpty());
 	}
 
 	@Test

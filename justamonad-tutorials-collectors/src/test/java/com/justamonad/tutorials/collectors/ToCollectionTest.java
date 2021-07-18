@@ -26,7 +26,7 @@ import com.justamonad.tutorials.common.Transaction;
 import com.justamonad.tutorials.common.Transactions;
 import com.neovisionaries.i18n.CountryCode;
 
-public class CollectorsCollectionTest {
+public class ToCollectionTest {
 
 	@Test
 	public void getAllCollectorsMethods() {
@@ -173,16 +173,16 @@ public class CollectorsCollectionTest {
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.invoice().date()));
 
 		Map<Long, Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-				.collect(Collectors.toMap(txn -> txn.transactionId(), txn -> txn));
+				.collect(Collectors.toConcurrentMap(txn -> txn.transactionId(), txn -> txn));
 		// use Function.identity instead of txn -> txn.
 		Assert.assertEquals(2, result.size());
 
-		Map<Long, Invoice> txnInvoice = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-				.collect(Collectors.toMap(txn -> txn.transactionId(), txn -> txn.invoice()));
-		// use method reference txn -> txn.invoice() Transaction::invoice
-		System.out.println();
-		txnInvoice.forEach((k, v) -> System.out.println(k + " :: " + v.date()));
-		Assert.assertEquals(2, txnInvoice.size());
+//		Map<Long, Invoice> txnInvoice = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
+//				.collect(Collectors.toMap(txn -> txn.transactionId(), txn -> txn.invoice()));
+//		// use method reference txn -> txn.invoice() Transaction::invoice
+//		System.out.println();
+//		txnInvoice.forEach((k, v) -> System.out.println(k + " :: " + v.date()));
+//		Assert.assertEquals(2, txnInvoice.size());
 
 	}
 

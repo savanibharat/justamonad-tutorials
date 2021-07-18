@@ -1,7 +1,5 @@
 package com.justamonad.tutorials.spring.beans;
 
-import java.util.Arrays;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -20,8 +18,9 @@ public class GetAllBeans implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		@SuppressWarnings("unused")
 		String[] beans = applicationContext.getBeanDefinitionNames();
-		Arrays.stream(beans).sorted().forEach(System.out::println);
+//		Arrays.stream(beans).sorted().forEach(System.out::println);
 	}
 
 }

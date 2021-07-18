@@ -1,6 +1,5 @@
 package com.justamonad.tutorials.collectors;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.joda.money.CurrencyUnit;
@@ -11,55 +10,52 @@ import com.justamonad.tutorials.common.Item;
 import com.justamonad.tutorials.common.Transaction;
 import com.justamonad.tutorials.common.Transactions;
 
-public class CollectorsAveragingTest {
+public class SummingTest {
 
 	@Test
 	public void summingInt() {
 		
-		Double average = Transactions.getDataSet()
+		Integer sum = Transactions.getDataSet()
 			.stream()
 			.map(Transaction::invoice)
 			.flatMap(inv -> inv.items().stream())
 			.map(Item::price)
-			.peek(System.out::println)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
-			.collect(Collectors.averagingInt(Money::getAmountMajorInt));
+			.collect(Collectors.summingInt(Money::getAmountMajorInt));
 		
-		System.out.println(average);
-		System.out.println();
+		System.out.println(sum);
+		
 	}
 	
 	@Test
 	public void summingLong() {
 		
-		Double average = Transactions.getDataSet()
+		Long sum = Transactions.getDataSet()
 			.stream()
 			.map(Transaction::invoice)
+			//.map(Invoice::items)
+			//.flatMap(Collection::stream)
 			.flatMap(inv -> inv.items().stream())
 			.map(Item::price)
-			.peek(System.out::println)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
-			.collect(Collectors.averagingLong(Money::getAmountMajorLong));
+			.collect(Collectors.summingLong(Money::getAmountMajorLong));
 		
-		System.out.println(average);
-		System.out.println();
+		System.out.println(sum);
+		
 	}
 	
 	@Test
 	public void summingDouble() {
 		
-		List<Transaction> txns = Transactions.getDataSet();
-		Double average = txns
+		Double sum = Transactions.getDataSet()
 			.stream()
 			.map(Transaction::invoice)
 			.flatMap(inv -> inv.items().stream())
 			.map(Item::price)
-			.peek(System.out::println)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
-			.collect(Collectors.averagingDouble(money -> money.getAmountMajor().doubleValue()));
+			.collect(Collectors.summingDouble(money -> money.getAmountMajor().doubleValue()));
 		
-		System.out.println(average);
-		System.out.println();
+		System.out.println(sum);
 
 	}
 

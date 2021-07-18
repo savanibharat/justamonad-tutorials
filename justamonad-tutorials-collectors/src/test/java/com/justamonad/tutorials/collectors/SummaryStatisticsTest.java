@@ -1,5 +1,8 @@
 package com.justamonad.tutorials.collectors;
 
+import java.util.DoubleSummaryStatistics;
+import java.util.IntSummaryStatistics;
+import java.util.LongSummaryStatistics;
 import java.util.stream.Collectors;
 
 import org.joda.money.CurrencyUnit;
@@ -10,50 +13,54 @@ import com.justamonad.tutorials.common.Item;
 import com.justamonad.tutorials.common.Transaction;
 import com.justamonad.tutorials.common.Transactions;
 
-public class CollectorsSummingTest {
+public class SummaryStatisticsTest {
 
 	@Test
 	public void summingInt() {
 		
-		Integer sum = Transactions.getDataSet()
+		IntSummaryStatistics stats = Transactions.getDataSet()
 			.stream()
 			.map(Transaction::invoice)
 			.flatMap(inv -> inv.items().stream())
 			.map(Item::price)
+			.peek(System.out::println)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
-			.collect(Collectors.summingInt(Money::getAmountMajorInt));
+			.collect(Collectors.summarizingInt(Money::getAmountMajorInt));
 		
-		System.out.println(sum);
+		System.out.println(stats);
+		System.out.println();
 		
 	}
 	
 	@Test
 	public void summingLong() {
 		
-		Long sum = Transactions.getDataSet()
+		LongSummaryStatistics stats = Transactions.getDataSet()
 			.stream()
 			.map(Transaction::invoice)
 			.flatMap(inv -> inv.items().stream())
 			.map(Item::price)
-			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
-			.collect(Collectors.summingLong(Money::getAmountMajorLong));
+			.peek(System.out::println)
+			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.CAD)
+			.collect(Collectors.summarizingLong(Money::getAmountMajorLong));
 		
-		System.out.println(sum);
+		System.out.println(stats);
 		
 	}
 	
 	@Test
 	public void summingDouble() {
 		
-		Double sum = Transactions.getDataSet()
+		DoubleSummaryStatistics stats = Transactions.getDataSet()
 			.stream()
 			.map(Transaction::invoice)
 			.flatMap(inv -> inv.items().stream())
 			.map(Item::price)
+			.peek(System.out::println)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
-			.collect(Collectors.summingDouble(money -> money.getAmountMajor().doubleValue()));
+			.collect(Collectors.summarizingDouble(money -> money.getAmountMajor().doubleValue()));
 		
-		System.out.println(sum);
+		System.out.println(stats);
 
 	}
 
