@@ -34,7 +34,8 @@ public class GroupAnagrams49 {
 
 		String[] arr = { "eat", "tea", "tan", "ate", "nat", "bat" };
 		System.out.println(groupAnagrams(arr));
-		System.out.println(groupAnagramsUsingMap(arr));
+		System.out.println(groupAnagramsUsingSorting(arr));
+		System.out.println(groupAnagramsUsingCollectors(arr));
 	}
 
 	/**
@@ -73,7 +74,7 @@ public class GroupAnagrams49 {
 	 * Space: O(NK). Total content stored is N strings with K length.
 	 * </p>
 	 */
-	public static List<List<String>> groupAnagramsUsingMap(String[] strs) {
+	public static List<List<String>> groupAnagramsUsingSorting(String[] strs) {
 		Map<String, List<String>> groups = new HashMap<>();
 		for (String s : strs) {
 			String sortedString = sortString(s);
@@ -90,9 +91,12 @@ public class GroupAnagrams49 {
 		return new String(chars);
 	}
 
-	public List<List<String>> groupAnagramsUsingCollectors(String[] strs) {
+	public static List<List<String>> groupAnagramsUsingCollectors(String[] strs) {
 		return new ArrayList<>(
-				Arrays.stream(strs).collect(Collectors.groupingBy(GroupAnagrams49::sortString)).values());
+				Arrays
+					.stream(strs)
+					.collect(
+							Collectors.groupingBy(GroupAnagrams49::sortString)).values());
 //			return new ArrayList<>(Arrays.stream(strs).collect(Collectors.groupingBy(GroupAnagrams49::hash)).values());
 	}
 
