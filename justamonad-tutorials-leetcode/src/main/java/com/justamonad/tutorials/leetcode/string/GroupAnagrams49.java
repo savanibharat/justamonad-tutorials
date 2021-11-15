@@ -95,8 +95,8 @@ public class GroupAnagrams49 {
 		return new ArrayList<>(
 				Arrays
 					.stream(strs)
-					.collect(
-							Collectors.groupingBy(GroupAnagrams49::sortString)).values());
+					.collect(Collectors.groupingBy(GroupAnagrams49::sortString))
+					.values());
 //			return new ArrayList<>(Arrays.stream(strs).collect(Collectors.groupingBy(GroupAnagrams49::hash)).values());
 	}
 
