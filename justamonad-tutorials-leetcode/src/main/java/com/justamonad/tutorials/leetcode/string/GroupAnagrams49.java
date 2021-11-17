@@ -40,8 +40,11 @@ public class GroupAnagrams49 {
 
 	/**
 	 * <p>
-	 * Time : O(N K log K). Outloop runs for O(N) and K is max length of string. so
+	 * If Sorting is used Time : O(N K log K). Outloop runs for O(N) and K is max length of string. so
 	 * sorting time is k log K.
+	 * </p>
+	 * <p>
+	 * If freq array is used Time : O(NK). N is number of strings and K is max length of string.
 	 * </p>
 	 * <p>
 	 * Space : O(NK). Total content stored is N strings with K length.

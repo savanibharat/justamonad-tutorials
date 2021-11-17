@@ -9,7 +9,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class HelloImpl implements IHello {
+public final class HelloImpl implements IHello {
 
 	/**
 	 * {@inheritDoc}
@@ -26,7 +26,7 @@ public class HelloImpl implements IHello {
 	@Override
 	public ResponseEntity<String> sayHelloAllHeaders(MultiValueMap<String, String> headers) {
 		headers.forEach((k, v) -> System.out.println(k + " : " + v));
-		return new ResponseEntity<String>("request-id : " + headers.get("request-id").get(0), HttpStatus.OK);
+		return new ResponseEntity<String>("request-ids : " + headers.get("request-id"), HttpStatus.OK);
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class HelloImpl implements IHello {
 	@Override
 	public ResponseEntity<String> sayHelloAllHeaders(HttpHeaders headers) {
 		headers.forEach((k, v) -> System.out.println(k + " : " + v));
-		return new ResponseEntity<String>("request-id : " + headers.get("request-id").get(0), HttpStatus.OK);
+		return new ResponseEntity<String>("all headers: " + headers, HttpStatus.OK);
 	}
 
 	/**
