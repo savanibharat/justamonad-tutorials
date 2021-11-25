@@ -20,19 +20,19 @@ public interface IHello {
 	 * {@link HttpStatus#BAD_REQUEST}.
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/all-headers-map")
-	public ResponseEntity<String> sayHelloAllHeaders(@RequestHeader Map<String, String> headers);
+	ResponseEntity<String> sayHelloAllHeaders(@RequestHeader Map<String, String> headers);
 
 	/**
 	 * @see #sayHelloAllHeaders(Map)
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/all-headers-multi-map")
-	public ResponseEntity<String> sayHelloAllHeaders(@RequestHeader MultiValueMap<String, String> headers);
+	ResponseEntity<String> sayHelloAllHeaders(@RequestHeader MultiValueMap<String, String> headers);
 
 	/**
 	 * @see #sayHelloAllHeaders(Map)
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/all-headers-httpheaders")
-	public ResponseEntity<String> sayHelloAllHeaders(@RequestHeader HttpHeaders headers);
+	ResponseEntity<String> sayHelloAllHeaders(@RequestHeader HttpHeaders headers);
 
 	/**
 	 * Returns the{@link HttpStatus#OK}.
@@ -41,14 +41,14 @@ public interface IHello {
 	 * {@link HttpStatus#BAD_REQUEST}.
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/one-header")
-	public ResponseEntity<String> sayHelloSpecificHeader(@RequestHeader(name = "request-id") String requestId);
+	ResponseEntity<String> sayHelloSpecificHeader(@RequestHeader(name = "request-id") String requestId);
 
 	/**
 	 * Returns {@link HttpStatus#OK} along with request-id if request-id header is
 	 * present else returns {@link HttpStatus#OK} and null request-id.
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/optional-header")
-	public ResponseEntity<String> sayHelloOptionalHeaderNotRequired(
+	ResponseEntity<String> sayHelloOptionalHeaderNotRequired(
 			@RequestHeader(name = "request-id", required = false) String requestId);
 
 	/**
@@ -56,7 +56,7 @@ public interface IHello {
 	 * value doesn't exists then it will return default value.
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/optional-header-default-value")
-	public ResponseEntity<String> sayHelloOptionalHeaderDefaultValue(
+	ResponseEntity<String> sayHelloOptionalHeaderDefaultValue(
 			@RequestHeader(name = "request-id", defaultValue = "default-value") String requestId);
 
 }
