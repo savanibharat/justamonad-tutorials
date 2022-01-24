@@ -16,20 +16,22 @@ public class SymmetricTree101 {
 		n.right.right = new TreeNode(3);
 		Tree.print2D(n);
 		System.out.println(isSymmetricTreeIterative(n));
-		System.out.println(isSymmetricTreeRecursive(n));
-		System.out.println(isSymmetricUsingQueue(n));
+//		System.out.println(isSymmetricTreeRecursive(n));
+//		System.out.println(isSymmetricUsingQueue(n));
 	}
 
 	/**
 	 * Time: O(N) because we traverse the entire input tree once. 
-	 * Space: O(h)
+	 * Space: O(N) because we have to insert all elements in queue.
 	 * */
 	private static boolean isSymmetricTreeIterative(TreeNode root) {
 		Stack<TreeNode> s1 = new Stack<>();
 		s1.push(root);
 		s1.push(root);
 		while (!s1.isEmpty()) {
-
+			
+			System.out.println(s1);
+			
 			TreeNode t1 = s1.pop();
 			TreeNode t2 = s1.pop();
 
@@ -44,8 +46,6 @@ public class SymmetricTree101 {
 			s1.push(t2.right);
 			s1.push(t1.right);
 			s1.push(t2.left);
-
-			System.out.println(s1);
 
 		}
 		return true;
