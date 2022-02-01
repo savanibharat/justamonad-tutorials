@@ -5,13 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-
-/**
- * Sequence all the validators.
- * */
 
 @Configuration
 public class ValidatorConfiguration {
@@ -32,23 +26,32 @@ public class ValidatorConfiguration {
 		this.emptyItems = emptyItems;
 		this.emptyAmount = emptyAmount;
 	}
-
-	@Bean
-	@Order(1)
-	public ValidatorFunction transactionValidator() {
-		return new TransactionValidator(emptyTransaction);
-	}
-
-	@Bean
-	@Order(2)
-	public ValidatorFunction invoiceValidator() {
-		return new InvoiceValidator(emptyInvoice);
-	}
 	
-	@Bean
-	@Order(3)
-	public ValidatorFunction itemValidator() {
-		return new ItemValidator(emptyItems, emptyAmount);
-	}
+
+//	@Bean
+//	public List<ValidatorFunction> validatorFunctions() {
+//		return List.of(
+//				new TransactionValidator(emptyTransaction), 
+//				new InvoiceValidator(emptyInvoice),
+//				new ItemValidator(emptyItems, emptyAmount));
+//	}
+
+//	@Bean
+//	@Order(1)
+//	public ValidatorFunction transactionValidator() {
+//		return new TransactionValidator(emptyTransaction);
+//	}
+//
+//	@Bean
+//	@Order(2)
+//	public ValidatorFunction invoiceValidator() {
+//		return new InvoiceValidator(emptyInvoice);
+//	}
+//	
+//	@Bean
+//	@Order(3)
+//	public ValidatorFunction itemValidator() {
+//		return new ItemValidator(emptyItems, emptyAmount);
+//	}
 
 }

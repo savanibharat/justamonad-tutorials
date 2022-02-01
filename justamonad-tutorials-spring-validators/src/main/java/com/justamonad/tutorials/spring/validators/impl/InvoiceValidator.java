@@ -6,12 +6,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.springframework.core.annotation.Order;
-
 import com.justamonad.tutorials.spring.validators.api.Transaction;
 
 @Named
-@Order(2)
 public final class InvoiceValidator implements ValidatorFunction {
 
 	private final List<ErrorData> noInvoice;
@@ -23,7 +20,10 @@ public final class InvoiceValidator implements ValidatorFunction {
 
 	@Override
 	public List<ErrorData> apply(Transaction transaction) {
-		return transaction.invoice() == null ? noInvoice : Collections.emptyList();
+		if (transaction != null && transaction.invoice() == null) {
+            return noInvoice;
+        }
+		return Collections.emptyList();
 	}
 
 }

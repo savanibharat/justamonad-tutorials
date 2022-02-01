@@ -1,7 +1,8 @@
 package com.justamonad.tutorials.spring.validators.impl;
 
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,9 +25,8 @@ public final class TransactionRequestValidator {
 		List<ErrorData> errorDatas = validatorFunctions
 			.stream()
 			.map(validatorFunc -> validatorFunc.apply(transaction))
-			.filter(error -> !error.isEmpty())
-			.findFirst()
-			.orElseGet(Collections::emptyList);
+			.flatMap(Collection::stream)
+			.collect(Collectors.toUnmodifiableList());
 		
 		if(!errorDatas.isEmpty()) {
 			throw new RequestValidationException(errorDatas.toString());

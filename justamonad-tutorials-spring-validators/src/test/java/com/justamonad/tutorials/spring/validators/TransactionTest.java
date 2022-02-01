@@ -40,7 +40,7 @@ public class TransactionTest {
 		transactionRequestValidator.validate(transaction);
 	}
 
-	@Test//(expected = RequestValidationException.class)
+	@Test
 	public void testValidItem() {
 		Item item = Item.of("toy", Money.of(CurrencyUnit.USD, BigDecimal.TEN));
 		Invoice invoice = Invoice.of(LocalDate.now(), Collections.singletonList(item));
