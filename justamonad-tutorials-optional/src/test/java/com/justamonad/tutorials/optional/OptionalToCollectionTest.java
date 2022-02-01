@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -57,25 +58,26 @@ public class OptionalToCollectionTest {
 
 	}
 
+	@SuppressWarnings("unused")
 	@Test
 	public void testMap() {
 
-		collectToList(Optional.of("abc"));
-		collectToList(Optional.ofNullable(null));
+		List<String> collectToList = collectToList(Optional.of("abc"));
+		List<String> collectToList2 = collectToList(Optional.ofNullable(null));
 
-		collectToMap(Optional.of("abc"));
-		collectToMap(Optional.ofNullable(null));
+		Map<String, String> collectToMap = collectToMap(Optional.of("abc"));
+		Map<String, String> collectToMap2 = collectToMap(Optional.ofNullable(null));
 
 		Optional<String> optional = Optional.of("abc");
 
-		collect(optional, Collectors.toList());
-		collect(optional, collectingAndThen(toList(), Collections::unmodifiableList));
+		List<String> collect = collect(optional, Collectors.toList());
+		List<String> collect2 = collect(optional, collectingAndThen(toList(), Collections::unmodifiableList));
 
-		collect(optional, Collectors.toSet());
-		collect(optional, collectingAndThen(toSet(), Collections::unmodifiableSet));
+		Set<String> collect3 = collect(optional, Collectors.toSet());
+		Set<String> collect4 = collect(optional, collectingAndThen(toSet(), Collections::unmodifiableSet));
 
-		collect(optional, Collectors.toMap(identity(), identity()));
-		collect(optional, collectingAndThen(toMap(val -> val, val -> val), Collections::unmodifiableMap));
+		Map<String, String> collect5 = collect(optional, Collectors.toMap(identity(), identity()));
+		Map<String, String> collect6 = collect(optional, collectingAndThen(toMap(val -> val, val -> val), Collections::unmodifiableMap));
 
 	}
 
@@ -84,7 +86,9 @@ public class OptionalToCollectionTest {
 	 * that value else we return emptyList.
 	 */
 	static List<String> collectToList(Optional<String> optString) {
-		return optString.map(Collections::singletonList).orElseGet(Collections::emptyList);
+		return optString
+				.map(Collections::singletonList)
+				.orElseGet(Collections::emptyList);
 	}
 
 	/**
@@ -93,7 +97,9 @@ public class OptionalToCollectionTest {
 	 * and value.
 	 */
 	static Map<String, String> collectToMap(Optional<String> optString) {
-		return optString.map(s -> singletonMap(s, s)).orElseGet(Collections::emptyMap);
+		return optString
+				.map(s -> singletonMap(s, s))
+				.orElseGet(Collections::emptyMap);
 	}
 
 	/**

@@ -42,8 +42,13 @@ public class JoiningTest {
 	public void joining() {
 		List<Transaction> txns = Transactions.getDataSet();
 
-		String items = txns.stream().map(Transaction::invoice).flatMap(inv -> inv.items().stream()).map(Item::itemName)
-				.distinct().collect(Collectors.joining());
+		String items = txns
+				.stream()
+				.map(Transaction::invoice)
+				.flatMap(inv -> inv.items().stream())
+				.map(Item::itemName)
+				.distinct()
+				.collect(Collectors.joining());
 
 		System.out.println(items);
 
@@ -83,8 +88,13 @@ public class JoiningTest {
 	public void joiningWithDelimiter() {
 		List<Transaction> txns = Transactions.getDataSet();
 
-		String items = txns.stream().map(Transaction::invoice).flatMap(inv -> inv.items().stream()).map(Item::itemName)
-				.distinct().collect(Collectors.joining(", "));
+		String items = txns
+				.stream()
+				.map(Transaction::invoice)
+				.flatMap(inv -> inv.items().stream())
+				.map(Item::itemName)
+				.distinct()
+				.collect(Collectors.joining(", "));
 
 		System.out.println(items);
 
@@ -126,8 +136,13 @@ public class JoiningTest {
 	public void joiningWithPrefixDelimiterSuffix() {
 		List<Transaction> txns = Transactions.getDataSet();
 
-		String items = txns.stream().map(Transaction::invoice).flatMap(inv -> inv.items().stream()).map(Item::itemName)
-				.distinct().collect(Collectors.joining(", ", "{", "}"));
+		String items = txns
+				.stream()
+				.map(Transaction::invoice)
+				.flatMap(inv -> inv.items().stream())
+				.map(Item::itemName)
+				.distinct()
+				.collect(Collectors.joining(", ", "{", "}"));
 
 		System.out.println(items);
 	}
