@@ -4,7 +4,6 @@ import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -15,12 +14,9 @@ public class BeanClassInjectionTest {
 	@Inject
 	private BeanClassInjection beanClassInjection;
 	
-	@Inject
-	ApplicationContext applicationContext;
-	
 	@Test
-	public void testMe() {
-		beanClassInjection.callMe();
+	public void test() {
+		beanClassInjection.printBeans();
 	}
 	
 }

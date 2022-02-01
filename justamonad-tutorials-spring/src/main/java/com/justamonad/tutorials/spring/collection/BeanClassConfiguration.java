@@ -14,13 +14,13 @@ public class BeanClassConfiguration {
 	}
 
 	@Bean
-	@Order(2)
+	@Order(3)
 	public BeanClass beanClass2() {
 		return new BeanClass("Sansa Stark");
 	}
 
 	@Bean
-	@Order(3)
+	@Order(2)
 	public BeanClass beanClass3() {
 		return new BeanClass("Arya Stark");
 	}

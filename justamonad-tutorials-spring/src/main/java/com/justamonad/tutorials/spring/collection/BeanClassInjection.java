@@ -15,7 +15,7 @@ public class BeanClassInjection {
 		this.beanClasses = beanClasses;
 	}
 
-	public void callMe() {
+	public void printBeans() {
 		beanClasses.forEach(e -> System.out.println(e.getStr()));
 	}
 
