@@ -2,7 +2,7 @@ package com.justamonad.tutorials.spring.validators.api;
 
 import org.joda.money.Money;
 
-public class Item {
+public final class Item {
 
 	private final String itemName;
 	private final Money price;

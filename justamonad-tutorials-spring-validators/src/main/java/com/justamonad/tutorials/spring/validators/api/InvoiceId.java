@@ -2,7 +2,7 @@ package com.justamonad.tutorials.spring.validators.api;
 
 import java.util.UUID;
 
-public class InvoiceId {
+public final class InvoiceId {
 
 	private final UUID uuid;
 

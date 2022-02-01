@@ -1,6 +1,6 @@
 package com.justamonad.tutorials.spring.validators.api;
 
-public class Customer {
+public final class Customer {
 
 	private Name name;
 

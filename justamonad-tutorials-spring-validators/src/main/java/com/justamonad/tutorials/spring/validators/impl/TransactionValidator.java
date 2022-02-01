@@ -12,7 +12,7 @@ import com.justamonad.tutorials.spring.validators.api.Transaction;
 
 @Named
 @Order(1)
-public class TransactionValidator implements ValidatorFunction {
+public final class TransactionValidator implements ValidatorFunction {
 
 	private final List<ErrorData> noTransaction;
 

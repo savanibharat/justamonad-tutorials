@@ -10,7 +10,7 @@ import com.justamonad.tutorials.spring.validators.api.RequestValidationException
 import com.justamonad.tutorials.spring.validators.api.Transaction;
 
 @Named
-public class TransactionRequestValidator {
+public final class TransactionRequestValidator {
 	
 	private final List<ValidatorFunction> validatorFunctions;
 	

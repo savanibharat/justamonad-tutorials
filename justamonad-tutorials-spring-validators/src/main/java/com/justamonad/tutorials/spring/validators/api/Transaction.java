@@ -1,6 +1,6 @@
 package com.justamonad.tutorials.spring.validators.api;
 
-public class Transaction {
+public final class Transaction {
 
 	private final Customer customer;
 	private final Merchant merchant;

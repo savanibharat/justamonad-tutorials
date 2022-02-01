@@ -3,7 +3,7 @@ package com.justamonad.tutorials.spring.validators.api;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Invoice {
+public final class Invoice {
 
 	private final LocalDate date;
 	private final InvoiceId invoiceId;

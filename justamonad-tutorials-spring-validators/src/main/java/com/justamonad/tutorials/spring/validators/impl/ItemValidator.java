@@ -14,7 +14,7 @@ import com.justamonad.tutorials.spring.validators.api.Transaction;
 
 @Named
 @Order(3)
-public class ItemValidator implements ValidatorFunction {
+public final class ItemValidator implements ValidatorFunction {
 
 	private final List<ErrorData> noItems;
 	private final List<ErrorData> noAmount;

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ErrorData {
+public final class ErrorData {
 
 	private final String message;
 	private final List<String> errorArgs;
