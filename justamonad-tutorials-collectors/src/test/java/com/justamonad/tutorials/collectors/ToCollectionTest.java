@@ -73,8 +73,11 @@ public class ToCollectionTest {
 		List<Transaction> dataSet = Transactions.getDataSet();
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
-		List<Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
+		List<Transaction> result = dataSet
+				.stream()
+				.filter(txn -> txn.country() == CountryCode.US)
 				.collect(Collectors.toList());
+		
 		System.out.println();
 		result.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
@@ -100,7 +103,9 @@ public class ToCollectionTest {
 		List<Transaction> dataSet = Transactions.getDataSet();
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
-		List<Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
+		List<Transaction> result = dataSet
+				.stream()
+				.filter(txn -> txn.country() == CountryCode.US)
 				.collect(Collectors.toUnmodifiableList());
 		System.out.println();
 		result.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
@@ -122,8 +127,11 @@ public class ToCollectionTest {
 		List<Transaction> dataSet = Transactions.getDataSet();
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
-		Set<Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
+		Set<Transaction> result = dataSet
+				.stream()
+				.filter(txn -> txn.country() == CountryCode.US)
 				.collect(Collectors.toSet());
+		
 		System.out.println();
 		result.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
@@ -149,8 +157,11 @@ public class ToCollectionTest {
 		List<Transaction> dataSet = Transactions.getDataSet();
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
-		Set<Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
+		Set<Transaction> result = dataSet
+				.stream()
+				.filter(txn -> txn.country() == CountryCode.US)
 				.collect(Collectors.toUnmodifiableSet());
+		
 		System.out.println();
 		result.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
@@ -458,8 +469,11 @@ public class ToCollectionTest {
 		List<Transaction> dataSet = Transactions.getDataSet();
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
-		Set<Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
+		Set<Transaction> result = dataSet
+				.stream()
+				.filter(txn -> txn.country() == CountryCode.US)
 				.collect(Collectors.toCollection(LinkedHashSet::new));
+		
 		System.out.println();
 		result.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
@@ -473,8 +487,12 @@ public class ToCollectionTest {
 		List<Transaction> dataSet = Transactions.getDataSet();
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
-		Set<Long> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-				.map(txn -> txn.transactionId()).collect(Collectors.toCollection(TreeSet::new));
+		Set<Long> result = dataSet
+				.stream()
+				.filter(txn -> txn.country() == CountryCode.US)
+				.map(txn -> txn.transactionId())
+				.collect(Collectors.toCollection(TreeSet::new));
+		
 		System.out.println();
 		result.forEach(System.out::println);
 
@@ -488,9 +506,13 @@ public class ToCollectionTest {
 		List<Transaction> dataSet = Transactions.getDataSet();
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
-		Set<Long> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
+		Set<Long> result = dataSet
+				.stream()
+				.filter(txn -> txn.country() == CountryCode.US)
 				.map(txn -> txn.transactionId())
-				.collect(Collectors.toCollection(() -> new TreeSet<Long>(Comparator.reverseOrder())));
+				.collect(
+						Collectors.toCollection(() -> new TreeSet<Long>(Comparator.reverseOrder())));
+		
 		System.out.println();
 		result.forEach(System.out::println);
 
@@ -519,9 +541,12 @@ public class ToCollectionTest {
 		List<Transaction> dataSet = Transactions.getDataSet();
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
-		PriorityQueue<Long> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
+		PriorityQueue<Long> result = dataSet
+				.stream()
+				.filter(txn -> txn.country() == CountryCode.US)
 				.map(txn -> txn.transactionId())
-				.collect(Collectors.toCollection(() -> new PriorityQueue<Long>(Comparator.reverseOrder())));
+				.collect(
+						Collectors.toCollection(() -> new PriorityQueue<Long>(Comparator.reverseOrder())));
 		System.out.println();
 		result.forEach(System.out::println);
 
@@ -535,8 +560,11 @@ public class ToCollectionTest {
 		List<Transaction> dataSet = Transactions.getDataSet();
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
-		List<Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-				.collect(Collectors.toCollection(() -> new ArrayList<Transaction>(20)));
+		List<Transaction> result = dataSet
+				.stream()
+				.filter(txn -> txn.country() == CountryCode.US)
+				.collect(
+						Collectors.toCollection(() -> new ArrayList<Transaction>(20)));
 		System.out.println();
 		result.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
