@@ -21,11 +21,10 @@ public final class TryDemo2 {
 	 * </ol>
 	 */
 	public String userLoad(String accountNumber) {
-
 		return Try
-				.of(() -> makeOutBoundCall(accountNumber, false, true))
-				.onSuccess(val -> System.out.println("success"))
-				.onFailure(t -> System.out.println("Ex is " + t))
+				.of(() -> makeOutBoundCall(accountNumber, false, true, false))
+				.onSuccess(val -> System.out.println(val))
+				.onFailure(throwable -> System.out.println("Ex is " + throwable))
 				.get();
 				// Use this as we can't throw throwable as it is checked exception or just do get with impunity.
 				// If instance of Try is Failure it will throw the exception of that type directly.
@@ -42,11 +41,14 @@ public final class TryDemo2 {
 //		return response;
 	}
 
-	private String makeOutBoundCall(String accountNumber, boolean throwWAP, boolean throwNPE) {
+	private String makeOutBoundCall(String accountNumber, boolean throwWAP, boolean throwNPE,
+									boolean throwInterruptedEx) throws Exception {
 		if (throwWAP) {
 			throw new WebApplicationException();
 		} else if (throwNPE) {
 			throw new NullPointerException();
+		} else if(throwInterruptedEx) {
+			throw new InterruptedException();
 		}
 		return "response";
 	}
