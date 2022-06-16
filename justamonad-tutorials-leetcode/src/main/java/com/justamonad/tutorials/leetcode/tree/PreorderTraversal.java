@@ -6,40 +6,38 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
-public class InorderTraversal {
+public class PreorderTraversal {
 
-    public List<Integer> inorderRecursive(TreeNode root) {
+    public List<Integer> preorderRecursive(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        inorderRecursive(root, result);
+        preorderRecursive(root, result);
         return Collections.unmodifiableList(result);
     }
 
-    private void inorderRecursive(TreeNode root, List<Integer> result) {
+    private void preorderRecursive(TreeNode root, List<Integer> result) {
         if(root != null) {
-            inorderRecursive(root.left, result);
             result.add(root.val);
-            inorderRecursive(root.right, result);
+            preorderRecursive(root.left, result);
+            preorderRecursive(root.right, result);
         }
     }
 
-    public List<Integer> inorder(TreeNode root) {
+
+    public List<Integer> preorder(TreeNode root) {
         TreeNode curr = root;
-        List<Integer> result = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         Deque<TreeNode> stack = new ArrayDeque<>();
 
         while (curr != null || !stack.isEmpty()) {
             while (curr != null) {
-                // Push left subtree in stack.
+                list.add(curr.val);
                 stack.push(curr);
                 curr = curr.left;
             }
-            // Visit the node as no left subtree exists.
             curr = stack.pop();
-            result.add(curr.val);
-            // Visit the right subtree
             curr = curr.right;
         }
-        return Collections.unmodifiableList(result);
+        return list;
     }
 
 }
