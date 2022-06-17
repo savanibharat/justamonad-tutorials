@@ -13,13 +13,6 @@ public class BSTPreorderIterator {
             stack.push(root);
     }
 
-    public static void main(String[] args) {
-        BSTPreorderIterator bstPreorderIterator = new BSTPreorderIterator(Tree.createNodes());
-        while (bstPreorderIterator.hasNext()) {
-            System.out.print(bstPreorderIterator.next() + " ");
-        }
-    }
-
     public int next() {
         TreeNode node = stack.pop();
         if (node.right != null)
