@@ -9,7 +9,7 @@ import java.util.List;
 public class PostorderTraversal {
 
     public static void main(String[] args) {
-        postorderRecursive(Tree.createNodes());
+        postorderTraversalIterativeBetter(Tree.createNodes());
     }
 
     public static List<Integer> postorderRecursive(TreeNode root) {
@@ -66,6 +66,34 @@ public class PostorderTraversal {
             if (root.left != null) root = root.left;
             else root = root.right;
         }
+    }
+
+    public static List<Integer> postorderTraversalIterativeBetter(TreeNode root) {
+
+        if(root == null) return Collections.emptyList();
+
+        List<Integer> result = new ArrayList<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode lastVisited = null;
+        TreeNode curr = root;
+
+        while(!stack.isEmpty() || curr != null) {
+            if(curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            } else {
+                TreeNode peekNode = stack.peek();
+                // if right child exists and traversing node
+                // from left child, then move right
+                if(peekNode.right != null && lastVisited != peekNode.right) {
+                    curr = peekNode.right;
+                } else {
+                    result.add(peekNode.val);
+                    lastVisited = stack.pop();
+                }
+            }
+        }
+        return result;
     }
 
 }

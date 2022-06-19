@@ -12,6 +12,13 @@ public class BSTPostorderIterator {
         init(root);
     }
 
+    public static void main(String[] args) {
+        BSTPostorderIterator iterator = new BSTPostorderIterator(Tree.createNodes());
+        while (iterator.hasNext()) {
+            System.out.print(iterator.next() + " ");
+        }
+    }
+
     private void init(TreeNode root) {
         while (root != null) {
             stack.push(root);
@@ -35,12 +42,5 @@ public class BSTPostorderIterator {
 
     public boolean hasNext() {
         return !stack.isEmpty();
-    }
-
-    public static void main(String[] args) {
-        BSTPostorderIterator iterator = new BSTPostorderIterator(Tree.createNodes());
-        while (iterator.hasNext()) {
-            System.out.print(iterator.next() + " ");
-        }
     }
 }
