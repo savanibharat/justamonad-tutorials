@@ -55,18 +55,25 @@ public class NAryTreePostorderTraversal {
 
         while (!stack.isEmpty()) {
             Node curr = stack.peek();
+            // If no children exists for this node then visit it.
             if (curr.children.isEmpty()) {
                 stack.pop();
                 result.add(curr.val);
             } else {
+                // If this node is already visited then insert in
+                // result.
                 if (visited.contains(curr)) {
                     stack.pop();
                     result.add(curr.val);
                     continue;
                 }
+                // Push all children in reverse into stack so
+                // we çan access them from left to right.
                 for (int i = curr.children.size() - 1; i >= 0; i--) {
                     stack.push(curr.children.get(i));
                 }
+                // Once this node is visited then push it in visited set
+                // so we don't visit it again.
                 visited.add(curr);
             }
         }
