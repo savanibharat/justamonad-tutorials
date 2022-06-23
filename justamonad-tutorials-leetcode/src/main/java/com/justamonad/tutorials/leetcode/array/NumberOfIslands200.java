@@ -6,14 +6,12 @@ import java.util.Queue;
 public class NumberOfIslands200 {
 
 	public static void main(String[] args) {
-
 		char[][] grid = { { '1', '1', '0', '0', '0' }, { '1', '1', '0', '0', '0' }, { '0', '0', '1', '0', '0' },
 				{ '0', '0', '0', '1', '1' } };
 
 		NumberOfIslands200 ni = new NumberOfIslands200();
 		int islands = ni.numIslandsIterativeWithVisitedArray(grid);
 		System.out.println(islands);
-
 	}
 
 	private static final int[][] DIRECTIONS = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
