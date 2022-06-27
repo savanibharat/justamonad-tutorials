@@ -304,33 +304,33 @@ public class ToCollectionTest {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Test
-	@Beta
-	public void toConcurrentMapAndThenUnmodifiableMap() {
-
-		List<Transaction> dataSet = Transactions.getDataSet();
-		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.invoice().date()));
-
-		Map<Long, Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-				.collect(Collectors.toMap(txn -> txn.transactionId(), txn -> txn));
-		// use Function.identity instead of txn -> txn.
-		Assert.assertEquals(2, result.size());
-
-		Collector<Transaction, ?, ConcurrentMap<Long, Invoice>> toConcurrentMap = Collectors
-				.toConcurrentMap(txn -> txn.transactionId(), txn -> txn.invoice());
-
-		Collector<Transaction, ?, Map<Long, Invoice>> collectingAndThen = Collectors.collectingAndThen(toConcurrentMap,
-				map -> (Map<Long, Invoice>) Map.ofEntries(map.entrySet().toArray(new Map.Entry[0])));
-
-		Map<Long, Invoice> txnInvoice = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-				.collect(collectingAndThen);
-
-		// use method reference txn -> txn.invoice() Transaction::invoice
-		System.out.println();
-		txnInvoice.forEach((k, v) -> System.out.println(k + " :: " + v.date()));
-		Assert.assertEquals(2, txnInvoice.size());
-
-	}
+//	@Test
+//	@Beta
+//	public void toConcurrentMapAndThenUnmodifiableMap() {
+//
+//		List<Transaction> dataSet = Transactions.getDataSet();
+//		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.invoice().date()));
+//
+//		Map<Long, Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
+//				.collect(Collectors.toMap(txn -> txn.transactionId(), txn -> txn));
+//		// use Function.identity instead of txn -> txn.
+//		Assert.assertEquals(2, result.size());
+//
+//		Collector<Transaction, ?, ConcurrentMap<Long, Invoice>> toConcurrentMap = Collectors
+//				.toConcurrentMap(txn -> txn.transactionId(), txn -> txn.invoice());
+//
+//		Collector<Transaction, ?, Map<Long, Invoice>> collectingAndThen = Collectors.collectingAndThen(toConcurrentMap,
+//				map -> (Map<Long, Invoice>) Map.ofEntries(map.entrySet().toArray(new Map.Entry[0])));
+//
+//		Map<Long, Invoice> txnInvoice = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
+//				.collect(collectingAndThen);
+//
+//		// use method reference txn -> txn.invoice() Transaction::invoice
+//		System.out.println();
+//		txnInvoice.forEach((k, v) -> System.out.println(k + " :: " + v.date()));
+//		Assert.assertEquals(2, txnInvoice.size());
+//
+//	}
 
 	@Test(expected = IllegalStateException.class)
 	public void toConcurrentMapDuplicateKey() {

@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.object.mapping.invoice.request;
+package com.justamonad.tutorials.object.mapping.invoice.request.pojo;
 
 import java.util.ArrayList;
 import java.util.List;

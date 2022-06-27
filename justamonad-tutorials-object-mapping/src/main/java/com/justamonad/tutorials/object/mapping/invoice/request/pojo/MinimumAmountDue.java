@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.object.mapping.invoice.request;
+package com.justamonad.tutorials.object.mapping.invoice.request.pojo;
 
 public class MinimumAmountDue {
     private String currencyCode;
