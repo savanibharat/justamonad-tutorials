@@ -1,8 +1,14 @@
 package com.justamonad.tutorials.leetcode.tree;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
 public class UnivaluedTree {
 
@@ -29,6 +35,24 @@ public class UnivaluedTree {
             inorderRecursive(root.right, result);
         }
     }
+
+    public boolean isUnivalTreeUsingQueue(TreeNode root) {
+        if (root == null) return true;
+
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        queue.add(root);
+        int val = root.val;
+
+        while (!queue.isEmpty()) {
+            TreeNode curr = queue.poll();
+            if (curr.val != val) return false;
+            if (curr.left != null) queue.add(curr.left);
+            if (curr.right != null) queue.add(curr.right);
+        }
+
+        return true;
+    }
+
 
     public boolean isUnivalTreeDFS(TreeNode root) {
         if (root == null) return true;
