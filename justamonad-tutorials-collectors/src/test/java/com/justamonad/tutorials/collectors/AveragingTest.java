@@ -21,7 +21,7 @@ public class AveragingTest {
 			.map(Transaction::invoice)
 			.flatMap(inv -> inv.items().stream())
 			.map(Item::price)
-//			.peek(System.out::println)
+			.peek(System.out::println)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
 			.collect(Collectors.averagingInt(Money::getAmountMajorInt));
 		

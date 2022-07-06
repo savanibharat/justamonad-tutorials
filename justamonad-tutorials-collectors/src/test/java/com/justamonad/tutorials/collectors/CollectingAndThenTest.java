@@ -50,7 +50,7 @@ public class CollectingAndThenTest {
 				.stream()
 				.filter(txn -> txn.country() == CountryCode.US)
 				//.collect(collectingAndThen(toList(), Collections::unmodifiableList));
-				.collect(collectingAndThen(toList(), Collections::unmodifiableList));
+				.collect(collectingAndThen(toList(), ImmutableList::copyOf));
 		
 		System.out.println();
 		result.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));

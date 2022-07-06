@@ -22,7 +22,6 @@ public class ArrayListCollectorImpl<T> implements Collector<T, List<T>, List<T>>
 
 	@Override
 	public Supplier<List<T>> supplier() {
-		System.out.println("supplier");
 		Supplier<List<T>> supplier = ArrayList::new;
 		return supplier;
 	}
@@ -34,7 +33,6 @@ public class ArrayListCollectorImpl<T> implements Collector<T, List<T>, List<T>>
 
 	@Override
 	public BinaryOperator<List<T>> combiner() {
-		System.out.println("combiner");
 		return (left, right) -> {
 			left.addAll(right);
 			return left;

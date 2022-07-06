@@ -18,7 +18,7 @@ public class Transactions {
 		transactions.add(getUS1Txn());
 		transactions.add(getUS2Txn());
 		transactions.add(getCAD1Txn());
-		transactions.add(getCAD2Txn());
+		transactions.add(getAUD1Txn());
 		return transactions;
 
 	}
@@ -45,7 +45,7 @@ public class Transactions {
 								Item.of("Toy", Money.of(CurrencyUnit.CAD, BigDecimal.TEN), "12345"))));
 	}
 
-	private static Transaction getCAD2Txn() {
+	private static Transaction getAUD1Txn() {
 		return Transaction.of(CountryCode.AU.getAlpha3(),
 				Invoice.of(LocalDate.now().plusDays(4),
 						Arrays.asList(Item.of("PS 4", Money.of(CurrencyUnit.AUD, BigDecimal.TEN), "12345"),
