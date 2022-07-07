@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.collectors.list;
+package com.justamonad.tutorials.collectors;
 
 import com.justamonad.tutorials.common.Invoice;
 import com.justamonad.tutorials.common.Transaction;

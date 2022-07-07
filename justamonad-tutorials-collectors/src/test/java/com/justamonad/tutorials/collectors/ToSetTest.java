@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.collectors.list;
+package com.justamonad.tutorials.collectors;
 
 import com.justamonad.tutorials.common.Transaction;
 import com.justamonad.tutorials.common.Transactions;
@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 public class ToSetTest {
 
-    //	toSet() method is used to collect the data from Stream into the Set. As of today the toSet() method returns
+//	toSet() method is used to collect the data from Stream into the Set. As of today the toSet() method returns
 //	a Collector that uses HashSet. That means the data will be collected into an HashSet.
 //	If you want provide your own implementation of Set then you need to use toCollection method.
 //	Remember Set will filter out duplicate eleemnts.
 
-    //	The result returned is mutable HashSet. Which means that the returned HashSet can be modified.
+//	The result returned is mutable HashSet. Which means that the returned HashSet can be modified.
 //	Below example collects the US country's transactions into the Set.
     @Test
     public void toSet() {

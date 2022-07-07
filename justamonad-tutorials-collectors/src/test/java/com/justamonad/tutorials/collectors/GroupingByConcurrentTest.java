@@ -84,20 +84,4 @@ public class GroupingByConcurrentTest {
         System.out.println(totalTxnsByCountry);
     }
 
-    @Test
-    public void groupingByConcurrentCountryAndCountUsingSupplierAndMappingTest() {
-        List<Transaction> dataSet = Transactions.getDataSet();
-        dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
-
-        Map<CountryCode, List<Long>> collect = dataSet
-                .stream()
-                .collect(Collectors.groupingByConcurrent(
-                        Transaction::country,
-                        ConcurrentSkipListMap::new,
-                        Collectors.mapping(Transaction::transactionId,
-                                Collectors.toList())));
-
-        System.out.println(collect);
-    }
-
 }

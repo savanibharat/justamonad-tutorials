@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.collectors.list;
+package com.justamonad.tutorials.collectors;
 
 import com.justamonad.tutorials.common.Transaction;
 import com.justamonad.tutorials.common.Transactions;
@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 
 public class ToMapTest {
 
-    //	toMap() method is used to collect the data from Stream into the Map. As of today the toMap() method returns
+//	toMap() method is used to collect the data from Stream into the Map. As of today the toMap() method returns
 //	a Collector that uses HashMap. That means the data will be collected into an HashMap.
 //	If you want provide your own implementation of Map then you need to use overloaded method toMap() and
 //	provide a Supplier<> of Map.
 //	Example Supplier<Map<Integer, String>> linkedMapSupplier = LinkedHashMap::new;
 
-    //	The result returned is mutable HashMap. Which means that the returned HashMap can be modified.
+//	The result returned is mutable HashMap. Which means that the returned HashMap can be modified.
 //	Below example collects the US country's invoices into the Map. Key - transaction_id and Value - Invoice
     @Test
     public void toMap() {

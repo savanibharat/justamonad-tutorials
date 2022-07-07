@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.collectors.list;
+package com.justamonad.tutorials.collectors;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

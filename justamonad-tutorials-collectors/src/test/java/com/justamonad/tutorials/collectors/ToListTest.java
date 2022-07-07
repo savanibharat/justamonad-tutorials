@@ -1,4 +1,4 @@
-package com.justamonad.tutorials.collectors.list;
+package com.justamonad.tutorials.collectors;
 
 import com.justamonad.tutorials.common.Transaction;
 import com.justamonad.tutorials.common.Transactions;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class ToListTest {
 
-    //	toList() method is used to collect the data from Stream into the List. As of today the toList() method returns
+//	toList() method is used to collect the data from Stream into the List. As of today the toList() method returns
 //	a Collector that uses ArrayList. That means the data will be collected into an ArrayList.
 //	If you want provide your own implementation of List then you need to use toCollection method. We will come to
 //	that later in this article.
