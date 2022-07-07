@@ -14,7 +14,7 @@ import com.justamonad.tutorials.common.Transactions;
 public class AveragingTest {
 
 	@Test
-	public void summingInt() {
+	public void averagingIntTest() {
 		
 		Double average = Transactions.getDataSet()
 			.stream()
@@ -30,7 +30,7 @@ public class AveragingTest {
 	}
 	
 	@Test
-	public void summingLong() {
+	public void averagingLongTest() {
 		
 		Double average = Transactions.getDataSet()
 			.stream()
@@ -46,7 +46,7 @@ public class AveragingTest {
 	}
 	
 	@Test
-	public void summingDouble() {
+	public void averagingDoubleTest() {
 		
 		List<Transaction> txns = Transactions.getDataSet();
 		Double average = txns

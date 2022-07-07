@@ -182,7 +182,6 @@ public class ToConcurrentMapTest {
 
     @Test
     public void toUnmodifiableMapBinaryOpRemove() {
-
         List<Transaction> dataSet = Transactions.getDataSet();
         dataSet.add(dataSet.get(0));
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
