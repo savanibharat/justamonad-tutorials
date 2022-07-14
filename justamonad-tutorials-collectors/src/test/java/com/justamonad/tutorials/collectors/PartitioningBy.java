@@ -20,6 +20,8 @@ public class PartitioningBy {
                                 Collectors.partitioningBy(
                                         // Partition based on Predicate
                                         val -> val.intValue() % 2 == 0));
+
+        System.out.println("\nOutput::");
         System.out.println(result);
     }
 
@@ -36,6 +38,8 @@ public class PartitioningBy {
                                         val -> val.intValue() % 2 == 0,
                                         // add values partitioned by Predicate
                                         Collectors.counting()));
+
+        System.out.println("\nOutput::");
         System.out.println(result);
     }
 
@@ -52,6 +56,8 @@ public class PartitioningBy {
                                         val -> val.intValue() % 2 == 0,
                                         // add values partitioned by Predicate
                                         Collectors.summingInt(Integer::intValue)));
+
+        System.out.println("\nOutput::");
         System.out.println(result);
     }
 

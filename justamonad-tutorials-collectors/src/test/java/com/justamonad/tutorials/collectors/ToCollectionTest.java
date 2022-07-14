@@ -52,14 +52,15 @@ public class ToCollectionTest {
 	@Test
 	public void toCollectionLinkedHashSet() {
 		List<Transaction> dataSet = Transactions.getDataSet();
+		System.out.println("Input::");
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
 		Set<Transaction> result = dataSet
 				.stream()
 				.filter(txn -> txn.country() == CountryCode.US)
 				.collect(Collectors.toCollection(LinkedHashSet::new));
-		
-		System.out.println();
+
+		System.out.println("\nOutput::");
 		result.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
 		Assert.assertEquals(2, result.size());
@@ -68,6 +69,7 @@ public class ToCollectionTest {
 	@Test
 	public void toCollectionTreeSet() {
 		List<Transaction> dataSet = Transactions.getDataSet();
+		System.out.println("Input::");
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
 		Set<Long> result = dataSet
@@ -76,7 +78,7 @@ public class ToCollectionTest {
 				.map(txn -> txn.transactionId())
 				.collect(Collectors.toCollection(TreeSet::new));
 		
-		System.out.println();
+		System.out.println("\nOutput::");
 		result.forEach(System.out::println);
 
 		Assert.assertEquals(2, result.size());
@@ -85,6 +87,7 @@ public class ToCollectionTest {
 	@Test
 	public void toCollectionTreeSetReverseOrder() {
 		List<Transaction> dataSet = Transactions.getDataSet();
+		System.out.println("Input::");
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
 		Set<Long> result = dataSet
@@ -94,7 +97,7 @@ public class ToCollectionTest {
 				.collect(
 						Collectors.toCollection(() -> new TreeSet<Long>(Comparator.reverseOrder())));
 		
-		System.out.println();
+		System.out.println("\nOutput::");
 		result.forEach(System.out::println);
 
 		Assert.assertEquals(2, result.size());
@@ -103,11 +106,12 @@ public class ToCollectionTest {
 	@Test
 	public void toCollectionPriorityQueue() {
 		List<Transaction> dataSet = Transactions.getDataSet();
+		System.out.println("Input::");
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
 		PriorityQueue<Long> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
 				.map(txn -> txn.transactionId()).collect(Collectors.toCollection(PriorityQueue::new));
-		System.out.println();
+		System.out.println("\nOutput::");
 		result.forEach(System.out::println);
 
 		Assert.assertEquals(2, result.size());
@@ -116,6 +120,7 @@ public class ToCollectionTest {
 	@Test
 	public void toCollectionPriorityQueueReverseOrder() {
 		List<Transaction> dataSet = Transactions.getDataSet();
+		System.out.println("Input::");
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
 		PriorityQueue<Long> result = dataSet
@@ -124,7 +129,7 @@ public class ToCollectionTest {
 				.map(txn -> txn.transactionId())
 				.collect(
 						Collectors.toCollection(() -> new PriorityQueue<Long>(Comparator.reverseOrder())));
-		System.out.println();
+		System.out.println("\nOutput::");
 		result.forEach(System.out::println);
 
 		Assert.assertEquals(2, result.size());
@@ -133,14 +138,16 @@ public class ToCollectionTest {
 	@Test
 	public void toCollectionArrayListWithCapacity() {
 		List<Transaction> dataSet = Transactions.getDataSet();
+		System.out.println("Input::");
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
 		List<Transaction> result = dataSet
 				.stream()
 				.filter(txn -> txn.country() == CountryCode.US)
 				.collect(
-						Collectors.toCollection(() -> new ArrayList<Transaction>(20)));
-		System.out.println();
+						Collectors.toCollection(() -> new ArrayList<>(20)));
+
+		System.out.println("\nOutput::");
 		result.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
 		Assert.assertEquals(2, result.size());

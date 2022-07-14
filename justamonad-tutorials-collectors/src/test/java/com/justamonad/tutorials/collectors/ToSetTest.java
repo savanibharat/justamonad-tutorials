@@ -23,6 +23,7 @@ public class ToSetTest {
     public void toSet() {
 
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
         Set<Transaction> result = dataSet
@@ -30,7 +31,7 @@ public class ToSetTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(Collectors.toSet());
 
-        System.out.println();
+        System.out.println("\nOutput::");
         result.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
         Assert.assertEquals(2, result.size());
@@ -53,6 +54,7 @@ public class ToSetTest {
     public void toUnmodifiableSet() {
 
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
         Set<Transaction> result = dataSet
@@ -60,7 +62,7 @@ public class ToSetTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(Collectors.toUnmodifiableSet());
 
-        System.out.println();
+        System.out.println("\nOutput::");
         result.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
         Assert.assertEquals(2, result.size());

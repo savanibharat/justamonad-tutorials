@@ -22,7 +22,8 @@ public class SummingTest {
 			.map(Item::price)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
 			.collect(Collectors.summingInt(Money::getAmountMajorInt));
-		
+
+		System.out.println("\nOutput::");
 		System.out.println(sum);
 		
 	}
@@ -39,7 +40,8 @@ public class SummingTest {
 			.map(Item::price)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
 			.collect(Collectors.summingLong(Money::getAmountMajorLong));
-		
+
+		System.out.println("\nOutput::");
 		System.out.println(sum);
 		
 	}
@@ -54,7 +56,8 @@ public class SummingTest {
 			.map(Item::price)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
 			.collect(Collectors.summingDouble(money -> money.getAmountMajor().doubleValue()));
-		
+
+		System.out.println("\nOutput::");
 		System.out.println(sum);
 
 	}

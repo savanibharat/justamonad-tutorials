@@ -21,6 +21,7 @@ public class ReducingTest {
 	@Test
 	public void reducingByGettingLowestValueTxnTest() {
 		List<Transaction> dataSet = Transactions.getDataSet();
+		System.out.println("Input::");
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
 		Money money = dataSet
@@ -31,13 +32,15 @@ public class ReducingTest {
 				.collect(collectingAndThen(
 						reducing(BinaryOperator.minBy(Money::compareTo)),
 						val -> val.orElseGet(() -> Money.of(CurrencyUnit.USD, BigDecimal.ZERO))));
-		
+
+		System.out.println("\nOutput::");
 		System.out.println(money);
 	}
 	
 	@Test
 	public void reducingByGettingHighestValueTxnTest() {
 		List<Transaction> dataSet = Transactions.getDataSet();
+		System.out.println("Input::");
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
 		Money money = dataSet
@@ -48,7 +51,8 @@ public class ReducingTest {
 				.collect(collectingAndThen(
 						reducing(BinaryOperator.maxBy(Money::compareTo)),
 						val -> val.orElseGet(() -> Money.of(CurrencyUnit.USD, BigDecimal.ZERO))));
-		
+
+		System.out.println("\nOutput::");
 		System.out.println(money);
 	}
 	

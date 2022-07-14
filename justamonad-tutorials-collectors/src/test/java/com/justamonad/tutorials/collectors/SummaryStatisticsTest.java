@@ -26,10 +26,9 @@ public class SummaryStatisticsTest {
 			.peek(System.out::println)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
 			.collect(Collectors.summarizingInt(Money::getAmountMajorInt));
-		
+
+		System.out.println("\nOutput::");
 		System.out.println(stats);
-		System.out.println();
-		
 	}
 	
 	@Test
@@ -43,7 +42,8 @@ public class SummaryStatisticsTest {
 			.peek(System.out::println)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.CAD)
 			.collect(Collectors.summarizingLong(Money::getAmountMajorLong));
-		
+
+		System.out.println("\nOutput::");
 		System.out.println(stats);
 		
 	}
@@ -59,7 +59,8 @@ public class SummaryStatisticsTest {
 			.peek(System.out::println)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
 			.collect(Collectors.summarizingDouble(money -> money.getAmountMajor().doubleValue()));
-		
+
+		System.out.println("\nOutput::");
 		System.out.println(stats);
 
 	}

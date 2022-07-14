@@ -26,10 +26,16 @@ public class ToMapTest {
     public void toMap() {
 
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.invoice().date()));
 
-        Map<Long, Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-                .collect(Collectors.toConcurrentMap(txn -> txn.transactionId(), txn -> txn));
+        Map<Long, Transaction> result = dataSet
+                .stream()
+                .filter(txn -> txn.country() == CountryCode.US)
+                .collect(
+                        Collectors.toMap(
+                                txn -> txn.transactionId(),
+                                txn -> txn));
         // use Function.identity instead of txn -> txn.
         Assert.assertEquals(2, result.size());
 
@@ -55,12 +61,19 @@ public class ToMapTest {
 
         List<Transaction> dataSet = Transactions.getDataSet();
         dataSet.add(dataSet.get(0));
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
-        Map<Long, Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-                .collect(Collectors.toMap(txn -> txn.transactionId(), txn -> txn));
+        Map<Long, Transaction> result = dataSet
+                .stream()
+                .filter(txn -> txn.country() == CountryCode.US)
+                .collect(
+                        Collectors.toMap(
+                                txn -> txn.transactionId(),
+                                txn -> txn));
+
         // use Function.identity instead of txn -> txn.
-        System.out.println();
+        System.out.println("\nOutput::");
         result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
         Assert.assertEquals(2, result.size());
 
@@ -71,12 +84,20 @@ public class ToMapTest {
 
         List<Transaction> dataSet = Transactions.getDataSet();
         dataSet.add(dataSet.get(0));
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
         BinaryOperator<Transaction> mergeFunction = (Transaction o1, Transaction o2) -> o1;
-        Map<Long, Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-                .collect(Collectors.toMap(txn -> txn.transactionId(), txn -> txn, mergeFunction));
-        System.out.println();
+        Map<Long, Transaction> result = dataSet
+                .stream()
+                .filter(txn -> txn.country() == CountryCode.US)
+                .collect(
+                        Collectors.toMap(
+                                txn -> txn.transactionId(),
+                                txn -> txn,
+                                mergeFunction));
+
+        System.out.println("\nOutput::");
         result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
         Assert.assertEquals(2, result.size());
 
@@ -87,12 +108,20 @@ public class ToMapTest {
 
         List<Transaction> dataSet = Transactions.getDataSet();
         dataSet.add(dataSet.get(0));
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
         // deleted the entry if BinOp returns null.
-        Map<Long, Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-                .collect(Collectors.toMap(txn -> txn.transactionId(), txn -> txn, (o1, o2) -> null));
-        System.out.println();
+        Map<Long, Transaction> result = dataSet
+                .stream()
+                .filter(txn -> txn.country() == CountryCode.US)
+                .collect(
+                        Collectors.toMap(
+                                txn -> txn.transactionId(),
+                                txn -> txn,
+                                (o1, o2) -> null));
+
+        System.out.println("\nOutput::");
         result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
         Assert.assertEquals(1, result.size());
 
@@ -103,10 +132,20 @@ public class ToMapTest {
 
         List<Transaction> dataSet = Transactions.getDataSet();
         dataSet.add(dataSet.get(0));
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
-        Map<Long, Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-                .collect(Collectors.toMap(txn -> txn.transactionId(), txn -> txn, (o1, o2) -> o1, LinkedHashMap::new));
-        System.out.println();
+
+        Map<Long, Transaction> result = dataSet
+                .stream()
+                .filter(txn -> txn.country() == CountryCode.US)
+                .collect(
+                        Collectors.toMap(
+                                txn -> txn.transactionId(),
+                                txn -> txn,
+                                (o1, o2) -> o1,
+                                LinkedHashMap::new));
+
+        System.out.println("\nOutput::");
         result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
         Assert.assertEquals(2, result.size());
 
@@ -117,15 +156,90 @@ public class ToMapTest {
 
         List<Transaction> dataSet = Transactions.getDataSet();
         dataSet.add(dataSet.get(0));
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
         // deleted the entry if BinOp returns null.
-        Map<Long, Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US).collect(
-                Collectors.toMap(txn -> txn.transactionId(), txn -> txn, (o1, o2) -> null, LinkedHashMap::new));
-        System.out.println();
+        Map<Long, Transaction> result = dataSet
+                .stream()
+                .filter(txn -> txn.country() == CountryCode.US)
+                .collect(
+                        Collectors.toMap(
+                                txn -> txn.transactionId(),
+                                txn -> txn,
+                                (o1, o2) -> null,
+                                LinkedHashMap::new));
+
+        System.out.println("\nOutput::");
         result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
         Assert.assertEquals(1, result.size());
+    }
 
+    @Test
+    public void toUnmodifiableMap() {
+        List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
+        System.out.println("Input::");
+        dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
+
+        Map<Long, Transaction> result = dataSet
+                .stream()
+                .filter(txn -> txn.country() == CountryCode.US)
+                .collect(
+                        Collectors.toUnmodifiableMap(
+                                txn -> txn.transactionId(),
+                                txn -> txn));
+
+        System.out.println("\nOutput::");
+        result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
+
+        Assert.assertEquals(2, result.size());
+
+    }
+
+    @Test
+    public void toUnmodifiableMapBinaryOpReplace() {
+        List<Transaction> dataSet = Transactions.getDataSet();
+        dataSet.add(dataSet.get(0));
+        System.out.println("Input::");
+        dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
+
+        Map<Long, Transaction> result = dataSet
+                .stream()
+                .filter(txn -> txn.country() == CountryCode.US)
+                .collect(
+                        Collectors.toUnmodifiableMap(
+                                txn -> txn.transactionId(),
+                                txn -> txn,
+                                (currentValue, newValue) -> currentValue));
+
+        System.out.println("\nOutput::");
+        result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
+
+        Assert.assertEquals(2, result.size());
+
+    }
+
+    @Test
+    public void toUnmodifiableMapBinaryOpRemove() {
+        List<Transaction> dataSet = Transactions.getDataSet();
+        dataSet.add(dataSet.get(0));
+        System.out.println("Input::");
+        dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
+
+        Map<Long, Transaction> result = dataSet
+                .stream()
+                .filter(txn -> txn.country() == CountryCode.US)
+                .collect(
+                        Collectors.toUnmodifiableMap(
+                                txn -> txn.transactionId(),
+                                txn -> txn,
+                                (currentValue, newValue) -> null));
+
+        System.out.println("\nOutput::");
+        result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
+
+        Assert.assertEquals(1, result.size());
     }
 
 }

@@ -1,28 +1,28 @@
-//package com.justamonad.tutorials.comparator.guava;
+package com.justamonad.tutorials.comparator.guava;
+
+import static java.util.Comparator.naturalOrder;
+import static java.util.Comparator.reverseOrder;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collector;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+import com.google.common.collect.Comparators;
+
+public class GuavaComparatorsTest {
 //
-//import static java.util.Comparator.naturalOrder;
-//import static java.util.Comparator.reverseOrder;
-//
-//import java.util.ArrayList;
-//import java.util.Arrays;
-//import java.util.Comparator;
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.stream.Collector;
-//
-//import org.junit.Assert;
-//import org.junit.Test;
-//
-//import com.google.common.collect.Comparators;
-//
-//public class GuavaComparatorsTest {
-//
-//	@Test
-//	public void isInOrderTrueUsingIntegerCompare() {
-//		List<Integer> numbers = Arrays.asList(1, 2, 3, 4);
-//		boolean inOrder = Comparators.isInOrder(numbers, Integer::compare);
-//		Assert.assertTrue(inOrder);
-//	}
+	@Test
+	public void isInOrderTrueUsingIntegerCompare() {
+		List<Integer> numbers = Arrays.asList(1, 2, 2, 4);
+		boolean inOrder = Comparators.isInOrder(numbers, Integer::compare);
+		Assert.assertTrue(inOrder);
+	}
 //
 //	@Test
 //	public void isInOrderComparatorTrue() {
@@ -53,12 +53,12 @@
 //		Assert.assertTrue(reverseOrder == naturalOrder);
 //	}
 //
-//	@Test
-//	public void isInStrictOrderComparatorTrue1() {
-//		List<Integer> numbers = Arrays.asList(1, 1, 2, 3, 4);
-//		boolean isInStrictOrder = Comparators.isInStrictOrder(numbers, naturalOrder());
-//		Assert.assertFalse(isInStrictOrder);
-//	}
+	@Test
+	public void isInStrictOrderComparatorTrue1() {
+		List<Integer> numbers = Arrays.asList(-1,-1,-1);
+		boolean isInStrictOrder = Comparators.isInStrictOrder(numbers, reverseOrder());
+		Assert.assertFalse(isInStrictOrder);
+	}
 //
 //	@Test
 //	public void isInStrictOrderComparatorTrue2() {
@@ -165,4 +165,4 @@
 //		System.out.println(names);
 //	}
 //
-//}
+}

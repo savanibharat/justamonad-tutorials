@@ -15,6 +15,7 @@ public class FilteringTest {
     @Test
     public void filteringCountryTest() {
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
         List<Transaction> countryTransactions = dataSet
@@ -24,12 +25,14 @@ public class FilteringTest {
                                 txn -> txn.country() == CountryCode.US,
                                 Collectors.toList()));
 
+        System.out.println("\nOutput::");
         countryTransactions.forEach(txn -> System.out.println(txn.country() + " " + txn.transactionId()));
     }
 
     @Test
     public void groupingByAndFilteringCountryAndAmountTest() {
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
         Map<Transaction, Long> totalTxnsOfCountry = dataSet
@@ -41,6 +44,7 @@ public class FilteringTest {
                                             && txn.amount().compareTo(new BigDecimal(15)) > 0,
                                     Collectors.counting())));
 
+        System.out.println("\nOutput::");
         totalTxnsOfCountry.forEach((k, v) -> System.out.println(k.transactionId() + " " + v));
     }
 

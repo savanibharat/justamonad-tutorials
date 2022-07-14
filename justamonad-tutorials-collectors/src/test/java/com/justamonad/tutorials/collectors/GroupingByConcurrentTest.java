@@ -17,12 +17,14 @@ public class GroupingByConcurrentTest {
     @Test
     public void groupingByConcurrentCountryTest() {
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
         Map<CountryCode, List<Transaction>> txnsByCountry = dataSet
                 .stream()
                 .collect(Collectors.groupingByConcurrent(Transaction::country));
 
+        System.out.println("\nOutput::");
         txnsByCountry.forEach((k, v) -> System.out.println(k + "" +
                 v.stream().map(Transaction::transactionId).collect(Collectors.toList())));
     }
@@ -30,6 +32,7 @@ public class GroupingByConcurrentTest {
     @Test
     public void groupingByConcurrentCountryAndCountTest() {
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
         Map<CountryCode, Long> totalTxnsByCountry = dataSet
@@ -38,12 +41,14 @@ public class GroupingByConcurrentTest {
                         Transaction::country,
                         Collectors.counting()));
 
+        System.out.println("\nOutput::");
         System.out.println(totalTxnsByCountry);
     }
 
     @Test
     public void groupingByConcurrentCountryAndTotalValuedTransactionsByCountryTest() {
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
         Map<CountryCode, Double> totalTxnsByCountry = dataSet
@@ -52,12 +57,14 @@ public class GroupingByConcurrentTest {
                         Transaction::country,
                         Collectors.summingDouble(txn -> txn.amount().doubleValue())));
 
+        System.out.println("\nOutput::");
         System.out.println(totalTxnsByCountry);
     }
 
     @Test
     public void groupingByConcurrentCountryAndAverageValuedTransactionsByCountryTest() {
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
         Map<CountryCode, Double> totalTxnsByCountry = dataSet
@@ -66,12 +73,14 @@ public class GroupingByConcurrentTest {
                         Transaction::country,
                         Collectors.averagingDouble(txn -> txn.amount().doubleValue())));
 
+        System.out.println("\nOutput::");
         System.out.println(totalTxnsByCountry);
     }
 
     @Test
     public void groupingByConcurrentCountryAndCountUsingSupplierTest() {
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
         Map<CountryCode, Long> totalTxnsByCountry = dataSet
@@ -81,6 +90,7 @@ public class GroupingByConcurrentTest {
                         ConcurrentSkipListMap::new,
                         Collectors.counting()));
 
+        System.out.println("\nOutput::");
         System.out.println(totalTxnsByCountry);
     }
 

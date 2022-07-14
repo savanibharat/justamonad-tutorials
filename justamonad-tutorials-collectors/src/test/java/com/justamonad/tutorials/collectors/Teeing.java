@@ -34,6 +34,7 @@ public class Teeing {
     @Test
     public void everyCountryMinMaxTeeingTest() {
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
         Map<CountryCode, List<Tuple2<String, Transaction>>> collect = dataSet.stream()
@@ -43,9 +44,11 @@ public class Teeing {
                                 Collectors.teeing(
                                         Collectors.minBy(Comparator.comparing(txn -> txn.amount())),
                                         Collectors.minBy(Comparator.comparing(txn -> txn.amount())),
-                                        (min, max) -> List.of(new Tuple2<>("MIN", min.get()),
+                                        (min, max) -> List.of(
+                                                new Tuple2<>("MIN", min.get()), // Be careful about .get() on Optional.
                                                 new Tuple2<>("MAX", max.get())))));
 
+        System.out.println("\nOutput::");
         collect.forEach((k, v) -> System.out.println(
                 k + " " + v.stream().map(tuple2 -> tuple2._1 + " " + tuple2._2.amount()).collect(Collectors.toList())));
     }

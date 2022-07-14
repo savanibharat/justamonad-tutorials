@@ -1,5 +1,8 @@
 package com.justamonad.tutorials.collectors;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -8,91 +11,93 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collector.Characteristics;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.justamonad.tutorials.common.Transaction;
-import com.justamonad.tutorials.common.Transactions;
-import com.neovisionaries.i18n.CountryCode;
-
 public class ArrayListCollectorImplTest {
 
-	@Test
-	public void test() {
-		List<Transaction> dataSet = Transactions.getDataSet();
-		List<Transaction> result = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-				.collect(Collectors.toList());
+    @Test
+    public void testIntegerList() {
+        List<Integer> result = Stream
+                .of(1, 2, 3, 4, 5)
+                .collect(new ArrayListCollectorImpl<Integer>());
 
-		Assert.assertFalse(result.isEmpty());
-	}
+        Assert.assertEquals(5, result.size());
+    }
 
-	@Test
-	public void testIntegerList() {
-		List<Integer> result = Stream.of(1, 2, 3, 4, 5).collect(new ArrayListCollectorImpl<Integer>());
+    @Test
+    public void testStringList() {
+        List<String> result = Stream
+                .of("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+                .collect(new ArrayListCollectorImpl<String>());
 
-		Assert.assertFalse(result.isEmpty());
-	}
+        Assert.assertEquals(5, result.size());
+    }
 
-	/**
-	 * Try making the collector unordered and concurrent, it will fail.
-	 * */
-	@Test
-	public void testIntegerListUsingCollectors() {
-		List<Integer> result = IntStream.range(1, 10_000).boxed().parallel()
-				.collect(new ArrayListCollectorImpl<Integer>());
+    @Test
+    public void arrayListCollectorWithoutFinisherOrCharacteristics() {
+        Supplier<List<Integer>> supplier = ArrayList::new;
 
-		Assert.assertFalse(result.isEmpty());
-	}
+        BiConsumer<List<Integer>, Integer> accumulator = (list, val) -> list.add(val);
 
-	@Test
-	public void collectorOfWithoutFinisher() {
-		Supplier<List<Integer>> supplier = ArrayList::new;
+        BinaryOperator<List<Integer>> combiner = (left, right) -> {
+            left.addAll(right);
+            return left;
+        };
 
-		BiConsumer<List<Integer>, Integer> accumulator = (list, val) -> list.add(val);
+        Collector<Integer, List<Integer>, List<Integer>> toList = Collector.of(supplier, accumulator, combiner);
 
-		BinaryOperator<List<Integer>> combiner = (left, right) -> {
-			left.addAll(right);
-			return left;
+        List<Integer> result = Stream.of(1, 2, 3, 4, 5).collect(toList);
 
-		};
+        Assert.assertEquals(5, result.size());
+    }
 
-		Characteristics characteristics = Characteristics.IDENTITY_FINISH;
+    @Test
+    public void arrayListCollectorWithoutFinisher() {
+        Supplier<List<Integer>> supplier = ArrayList::new;
 
-		Collector<Integer, List<Integer>, List<Integer>> toList = Collector.of(supplier, accumulator, combiner,
-				characteristics);
+        BiConsumer<List<Integer>, Integer> accumulator = (list, val) -> list.add(val);
 
-		List<Integer> result = Stream.of(1, 2, 3, 4, 5).collect(toList);
+        BinaryOperator<List<Integer>> combiner = (left, right) -> {
+            left.addAll(right);
+            return left;
+        };
 
-		Assert.assertFalse(result.isEmpty());
-	}
+        Characteristics characteristics = Characteristics.IDENTITY_FINISH;
 
-	@Test
-	public void collectorOfWithFinisher() {
+        Collector<Integer, List<Integer>, List<Integer>> toList = Collector.of(
+                supplier,
+                accumulator,
+                combiner,
+                characteristics);
 
-		Supplier<List<Integer>> supplier = ArrayList::new;
+        List<Integer> result = Stream.of(1, 2, 3, 4, 5).collect(toList);
 
-		BiConsumer<List<Integer>, Integer> accumulator = (list, val) -> list.add(val);
+        Assert.assertEquals(5, result.size());
+    }
 
-		BinaryOperator<List<Integer>> combiner = (left, right) -> {
-			left.addAll(right);
-			return left;
+    @Test
+    public void collectorOfWithFinisher() {
 
-		};
+        Supplier<List<Integer>> supplier = ArrayList::new;
 
-		Function<List<Integer>, List<Integer>> finisher = Function.identity();
+        BiConsumer<List<Integer>, Integer> accumulator = (list, val) -> list.add(val);
 
-		Characteristics characteristics = Characteristics.IDENTITY_FINISH;
+        BinaryOperator<List<Integer>> combiner = (left, right) -> {
+            left.addAll(right);
+            return left;
+        };
 
-		Collector<Integer, List<Integer>, List<Integer>> toList = Collector.of(supplier, accumulator, combiner,
-				finisher, characteristics);
+        Function<List<Integer>, List<Integer>> finisher = Function.identity();
 
-		List<Integer> result = Stream.of(1, 2, 3, 4, 5).collect(toList);
+        Characteristics characteristics = Characteristics.IDENTITY_FINISH;
 
-		Assert.assertFalse(result.isEmpty());
-	}
+        Collector<Integer, List<Integer>, List<Integer>> toList = Collector.of(supplier, accumulator, combiner,
+                finisher, characteristics);
+
+        List<Integer> result = Stream.of(1, 2, 3, 4, 5).collect(toList);
+
+        Assert.assertEquals(5, result.size());
+    }
 
 }

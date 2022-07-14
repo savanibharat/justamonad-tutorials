@@ -14,6 +14,7 @@ public class MappingTest {
     @Test
     public void groupingByCountryAndMappingTest() {
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
         Map<CountryCode, List<Long>> collect = dataSet
@@ -24,6 +25,7 @@ public class MappingTest {
                                 Transaction::transactionId,
                                 Collectors.toList())));
 
+        System.out.println("\nOutput::");
         System.out.println(collect);
     }
 

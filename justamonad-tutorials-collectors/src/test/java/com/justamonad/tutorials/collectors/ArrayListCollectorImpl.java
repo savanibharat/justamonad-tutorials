@@ -16,19 +16,17 @@ import java.util.stream.Collector;
  * <li>T = Integer</li>
  * <li>A = List<Integer></li>
  * <li>R = List<Integer></li>
- * 
  */
 public class ArrayListCollectorImpl<T> implements Collector<T, List<T>, List<T>> {
 
 	@Override
 	public Supplier<List<T>> supplier() {
-		Supplier<List<T>> supplier = ArrayList::new;
-		return supplier;
+		return ArrayList::new;
 	}
 
 	@Override
 	public BiConsumer<List<T>, T> accumulator() {
-		return (list, val) -> list.add(val);
+		return List::add;
 	}
 
 	@Override
@@ -48,5 +46,4 @@ public class ArrayListCollectorImpl<T> implements Collector<T, List<T>, List<T>>
 	public Set<Characteristics> characteristics() {
 		return EnumSet.of(Characteristics.IDENTITY_FINISH);
 	}
-
 }

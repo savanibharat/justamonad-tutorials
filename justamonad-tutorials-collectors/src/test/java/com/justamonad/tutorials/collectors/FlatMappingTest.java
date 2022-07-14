@@ -16,6 +16,7 @@ public class FlatMappingTest {
     @Test
     public void groupingByCountryAndMappingTest() {
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
         Map<CountryCode, List<List<Item>>> itemsSoldByCountry = dataSet
@@ -26,6 +27,7 @@ public class FlatMappingTest {
                                 txn -> txn.invoice().items(),
                                 Collectors.toList())));
 
+        System.out.println("\nOutput::");
         itemsSoldByCountry.forEach((k, v) -> System.out.println(
                 k + " " + v.stream().flatMap(Collection::stream).map(Item::itemName).collect(Collectors.toSet())
         ));
@@ -34,6 +36,7 @@ public class FlatMappingTest {
     @Test
     public void groupingByCountryAndFlatMappingTest() {
         List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
         Map<CountryCode, List<Item>> itemsSoldByCountry = dataSet
@@ -44,6 +47,7 @@ public class FlatMappingTest {
                                 txn -> txn.invoice().items().stream(),
                                 Collectors.toList())));
 
+        System.out.println("\nOutput::");
         itemsSoldByCountry.forEach((k, v) -> System.out.println(
                 k + " " + v.stream().map(Item::itemName).collect(Collectors.toSet())
         ));
