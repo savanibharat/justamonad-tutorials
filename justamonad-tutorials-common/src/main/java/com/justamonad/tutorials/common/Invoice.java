@@ -41,7 +41,7 @@ public class Invoice {
 			throw new IllegalArgumentException("Multiple currencies in single invoice is not allowed.");
 		}
 
-		return new Invoice(date, unmodifiableList(new ArrayList<>(items)), InvoiceId.createInvoiceId(),
+		return new Invoice(date, List.copyOf(items), InvoiceId.createInvoiceId(),
 				invoiceTotal(items));
 	}
 

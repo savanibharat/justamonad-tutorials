@@ -1,5 +1,6 @@
 package com.justamonad.tutorials.collectors;
 
+import com.google.common.collect.ImmutableMap;
 import com.justamonad.tutorials.common.Transaction;
 import com.justamonad.tutorials.common.Transactions;
 import com.neovisionaries.i18n.CountryCode;
@@ -34,13 +35,13 @@ public class ToMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toMap(
-                                txn -> txn.transactionId(),
+                                Transaction::transactionId,
                                 txn -> txn));
         // use Function.identity instead of txn -> txn.
         Assert.assertEquals(2, result.size());
 
 //		Map<Long, Invoice> txnInvoice = dataSet.stream().filter(txn -> txn.country() == CountryCode.US)
-//				.collect(Collectors.toMap(txn -> txn.transactionId(), txn -> txn.invoice()));
+//				.collect(Collectors.toMap(Transaction::transactionId, txn -> txn.invoice()));
 //		// use method reference txn -> txn.invoice() Transaction::invoice
 //		System.out.println();
 //		txnInvoice.forEach((k, v) -> System.out.println(k + " :: " + v.date()));
@@ -69,7 +70,7 @@ public class ToMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toMap(
-                                txn -> txn.transactionId(),
+                                Transaction::transactionId,
                                 txn -> txn));
 
         // use Function.identity instead of txn -> txn.
@@ -93,14 +94,13 @@ public class ToMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toMap(
-                                txn -> txn.transactionId(),
+                                Transaction::transactionId,
                                 txn -> txn,
                                 mergeFunction));
 
         System.out.println("\nOutput::");
         result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
         Assert.assertEquals(2, result.size());
-
     }
 
     @Test
@@ -117,7 +117,7 @@ public class ToMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toMap(
-                                txn -> txn.transactionId(),
+                                Transaction::transactionId,
                                 txn -> txn,
                                 (o1, o2) -> null));
 
@@ -140,7 +140,7 @@ public class ToMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toMap(
-                                txn -> txn.transactionId(),
+                                Transaction::transactionId,
                                 txn -> txn,
                                 (o1, o2) -> o1,
                                 LinkedHashMap::new));
@@ -165,7 +165,7 @@ public class ToMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toMap(
-                                txn -> txn.transactionId(),
+                                Transaction::transactionId,
                                 txn -> txn,
                                 (o1, o2) -> null,
                                 LinkedHashMap::new));
@@ -187,7 +187,7 @@ public class ToMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toUnmodifiableMap(
-                                txn -> txn.transactionId(),
+                                Transaction::transactionId,
                                 txn -> txn));
 
         System.out.println("\nOutput::");
@@ -209,7 +209,7 @@ public class ToMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toUnmodifiableMap(
-                                txn -> txn.transactionId(),
+                                Transaction::transactionId,
                                 txn -> txn,
                                 (currentValue, newValue) -> currentValue));
 
@@ -232,13 +232,105 @@ public class ToMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toUnmodifiableMap(
-                                txn -> txn.transactionId(),
+                                Transaction::transactionId,
                                 txn -> txn,
                                 (currentValue, newValue) -> null));
 
         System.out.println("\nOutput::");
         result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
 
+        Assert.assertEquals(1, result.size());
+    }
+
+    @Test
+    public void toGuavaImmutableMap() {
+        List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
+        dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
+
+        Map<Long, Transaction> result = dataSet
+                .stream()
+                .filter(txn -> txn.country() == CountryCode.US)
+                .collect(
+                        ImmutableMap.toImmutableMap(
+                                Transaction::transactionId,
+                                txn -> txn));
+
+        System.out.println("\nOutput::");
+        result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
+
+        Assert.assertTrue(result instanceof ImmutableMap);
+        Assert.assertEquals(2, result.size());
+    }
+
+    // Collectors.toMap throws IllegalStateException.
+    @Test(expected = IllegalArgumentException.class)
+    public void toGuavaImmutableMapDuplicateKey() {
+        List<Transaction> dataSet = Transactions.getDataSet();
+        dataSet.add(dataSet.get(0));
+        System.out.println("Input::");
+        dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
+
+        Map<Long, Transaction> result = dataSet
+                .stream()
+                .filter(txn -> txn.country() == CountryCode.US)
+                .collect(
+                        ImmutableMap.toImmutableMap(
+                                Transaction::transactionId,
+                                txn -> txn));
+
+        System.out.println("\nOutput::");
+        result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
+
+        Assert.assertTrue(result instanceof ImmutableMap);
+        Assert.assertEquals(2, result.size());
+    }
+
+    @Test
+    public void toGuavaImmutableMapBinaryOpReplace() {
+        List<Transaction> dataSet = Transactions.getDataSet();
+        dataSet.add(dataSet.get(0));
+        System.out.println("Input::");
+        dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
+
+        BinaryOperator<Transaction> mergeFunction = (Transaction o1, Transaction o2) -> o1;
+        Map<Long, Transaction> result = dataSet
+                .stream()
+                .filter(txn -> txn.country() == CountryCode.US)
+                .collect(
+                        ImmutableMap.toImmutableMap(
+                                Transaction::transactionId,
+                                txn -> txn,
+                                mergeFunction));
+
+        System.out.println("\nOutput::");
+        result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
+
+        Assert.assertTrue(result instanceof ImmutableMap);
+        Assert.assertEquals(2, result.size());
+    }
+
+    @Test
+    public void toGuavaImmutableMapBinaryOpDelete() {
+        List<Transaction> dataSet = Transactions.getDataSet();
+        dataSet.add(dataSet.get(0));
+        System.out.println("Input::");
+        dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
+
+        // deleted the entry if BinOp returns null.
+        Map<Long, Transaction> result = dataSet
+                .stream()
+                .filter(txn -> txn.country() == CountryCode.US)
+                .collect(
+                        ImmutableMap.toImmutableMap(
+                                Transaction::transactionId,
+                                txn -> txn,
+                                (o1, o2) -> null));
+
+        System.out.println("\nOutput::");
+        result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
+
+        Assert.assertTrue(result instanceof ImmutableMap);
         Assert.assertEquals(1, result.size());
     }
 
