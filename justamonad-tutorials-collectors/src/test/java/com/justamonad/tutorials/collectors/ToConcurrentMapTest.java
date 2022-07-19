@@ -8,16 +8,17 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class ToConcurrentMapTest {
 
     @Test
     public void toConcurrentMap() {
-
         List<Transaction> dataSet = Transactions.getDataSet();
         System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.invoice().date()));
@@ -27,13 +28,14 @@ public class ToConcurrentMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toConcurrentMap(
-                                txn -> txn.transactionId(),
+                                Transaction::transactionId,
                                 Transaction::invoice));
 
         System.out.println("\nOutput::");
         txnInvoice.forEach((k, v) -> System.out.println(k + " :: " + v.date()));
-        Assert.assertEquals(2, txnInvoice.size());
 
+        Assert.assertTrue(txnInvoice instanceof ConcurrentHashMap);
+        Assert.assertEquals(2, txnInvoice.size());
     }
 
     @Test(expected = IllegalStateException.class)
@@ -48,19 +50,19 @@ public class ToConcurrentMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toConcurrentMap(
-                                txn -> txn.transactionId(),
-                                txn -> txn));
+                                Transaction::transactionId,
+                                Function.identity()));
 
         // use Function.identity instead of txn -> txn.
         System.out.println("\nOutput::");
         result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
-        Assert.assertEquals(2, result.size());
 
+        Assert.assertTrue(result instanceof ConcurrentHashMap);
+        Assert.assertEquals(2, result.size());
     }
 
     @Test
     public void toConcurrentMapBinaryOpReplace() {
-
         List<Transaction> dataSet = Transactions.getDataSet();
         dataSet.add(dataSet.get(0));
         System.out.println("Input::");
@@ -71,19 +73,19 @@ public class ToConcurrentMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toConcurrentMap(
-                                txn -> txn.transactionId(),
-                                txn -> txn,
+                                Transaction::transactionId,
+                                Function.identity(),
                                 (currentValue, newValue) -> currentValue));
 
         System.out.println("\nOutput::");
         result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
-        Assert.assertEquals(2, result.size());
 
+        Assert.assertTrue(result instanceof ConcurrentHashMap);
+        Assert.assertEquals(2, result.size());
     }
 
     @Test
     public void toConcurrentMapBinaryOpDelete() {
-
         List<Transaction> dataSet = Transactions.getDataSet();
         dataSet.add(dataSet.get(0));
         System.out.println("Input::");
@@ -95,13 +97,15 @@ public class ToConcurrentMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toConcurrentMap(
-                                txn -> txn.transactionId(), txn -> txn,
+                                Transaction::transactionId,
+                                Function.identity(),
                                 (currentValue, newValue) -> null));
 
         System.out.println("\nOutput::");
         result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
-        Assert.assertEquals(1, result.size());
 
+        Assert.assertTrue(result instanceof ConcurrentHashMap);
+        Assert.assertEquals(1, result.size());
     }
 
     @Test
@@ -115,13 +119,15 @@ public class ToConcurrentMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toConcurrentMap(
-                                txn -> txn.transactionId(),
-                                txn -> txn,
+                                Transaction::transactionId,
+                                Function.identity(),
                                 (currentValue, newValue) -> currentValue,
                                 ConcurrentSkipListMap::new));
 
         System.out.println("\nOutput::");
         result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
+
+        Assert.assertTrue(result instanceof ConcurrentSkipListMap);
         Assert.assertEquals(2, result.size());
 
     }
@@ -139,15 +145,16 @@ public class ToConcurrentMapTest {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.toConcurrentMap(
-                                txn -> txn.transactionId(),
-                                txn -> txn,
+                                Transaction::transactionId,
+                                Function.identity(),
                                 (currentValue, newValue) -> null,
                                 ConcurrentSkipListMap::new));
 
         System.out.println("\nOutput::");
         result.forEach((k, v) -> System.out.println(k + " :: " + v.country()));
-        Assert.assertEquals(1, result.size());
 
+        Assert.assertTrue(result instanceof ConcurrentSkipListMap);
+        Assert.assertEquals(1, result.size());
     }
 
 }

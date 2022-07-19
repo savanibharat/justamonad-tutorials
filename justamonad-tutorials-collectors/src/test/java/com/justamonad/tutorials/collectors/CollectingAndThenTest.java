@@ -35,7 +35,6 @@ public class CollectingAndThenTest {
 
 	@Test
 	public void toListTest() {
-
 		List<Transaction> dataSet = Transactions.getDataSet();
 		System.out.println("Input::");
 		dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
@@ -53,7 +52,6 @@ public class CollectingAndThenTest {
 		result.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country()));
 
 		Assert.assertEquals(2, result.size());
-
 	}
 	@Test
 	public void collectingAndThenUsingAveraging() {
