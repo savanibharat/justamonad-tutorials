@@ -6,6 +6,7 @@ import static java.util.stream.Collectors.minBy;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
@@ -30,9 +31,10 @@ public class MinByMaxByTest {
 				.filter(txn -> txn.country() == CountryCode.US)
 				.map(Transaction::invoice)
 				.map(Invoice::invoiceTotal)
-				.collect(collectingAndThen(
-						minBy(Money::compareTo), 
-						val -> val.orElseGet(() -> Money.of(CurrencyUnit.USD, BigDecimal.ZERO))));
+				.collect(
+						Collectors.collectingAndThen(
+								Collectors.minBy(Money::compareTo),
+								val -> val.orElseGet(() -> Money.of(CurrencyUnit.USD, BigDecimal.ZERO))));
 
 		System.out.println("\nOutput::");
 		System.out.println(money);
@@ -49,9 +51,10 @@ public class MinByMaxByTest {
 				.filter(txn -> txn.country() == CountryCode.US)
 				.map(Transaction::invoice)
 				.map(Invoice::invoiceTotal)
-				.collect(collectingAndThen(
-						maxBy(Money::compareTo), 
-						val -> val.orElseGet(() -> Money.of(CurrencyUnit.USD, BigDecimal.ZERO))));
+				.collect(
+						Collectors.collectingAndThen(
+								Collectors.maxBy(Money::compareTo),
+								val -> val.orElseGet(() -> Money.of(CurrencyUnit.USD, BigDecimal.ZERO))));
 
 		System.out.println("\nOutput::");
 		System.out.println(money);

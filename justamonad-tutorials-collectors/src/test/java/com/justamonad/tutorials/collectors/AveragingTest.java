@@ -37,8 +37,8 @@ public class AveragingTest {
 			.map(Transaction::invoice)
 			.flatMap(inv -> inv.items().stream())
 			.map(Item::price)
-//			.peek(System.out::println)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
+			.peek(System.out::println)
 			.collect(Collectors.averagingLong(Money::getAmountMajorLong));
 		
 		System.out.println(average);
@@ -54,8 +54,8 @@ public class AveragingTest {
 			.map(Transaction::invoice)
 			.flatMap(inv -> inv.items().stream())
 			.map(Item::price)
-//			.peek(System.out::println)
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
+			.peek(System.out::println)
 			.collect(Collectors.averagingDouble(money -> money.getAmountMajor().doubleValue()));
 		
 		System.out.println(average);

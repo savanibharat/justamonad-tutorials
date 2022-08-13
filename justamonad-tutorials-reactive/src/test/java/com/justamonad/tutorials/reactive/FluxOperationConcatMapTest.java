@@ -28,8 +28,8 @@ public class FluxOperationConcatMapTest {
 	@Test
 	public void concatMap() {
 
-		Flux<Integer> data = Flux.just(new Pair(1, 300), new Pair(2, 200), new Pair(3, 100))
-				.concatMap(id -> delayReplayFor(id.id, id.delay));
+		Flux<Integer> data = Flux.just(new Pair(1, 3000), new Pair(2, 2000), new Pair(3, 1000))
+				.concatMap(id -> delayReplayFor(id.id, id.delay)).log();
 
 		StepVerifier.create(data).expectNext(1, 2, 3).verifyComplete();
 

@@ -58,7 +58,7 @@ public class FluxOperationSwitchMapTest {
 	public void switchMapWithLookaheads() {
 
 		Flux<String> source = Flux.just("re", "rea", "reac", "react", "reactive").delayElements(Duration.ofMillis(100))
-				.switchMap(this::lookUp);
+				.switchMap(this::lookUp).log();
 		
 		StepVerifier.create(source).expectNext("reactive -> reactive").verifyComplete();
 

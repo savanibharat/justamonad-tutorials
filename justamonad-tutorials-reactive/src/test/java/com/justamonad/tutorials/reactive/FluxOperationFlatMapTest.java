@@ -24,7 +24,7 @@ public class FluxOperationFlatMapTest {
 	 * suppose you needed to send those values to some network service that returns
 	 * a Flux<String>. You could flatMap over the outer stream, launching network
 	 * calls as you go. Some network calls might take 10 ms, others 100ms. You don’t
-	 * know. And in this case, the order doesn’t matter. So we might see the results
+	 * know. And in this case, the order does’t matter. So we might see the results
 	 * from 2 emitted before the result for 1.
 	 * </pre>
 	 * 
@@ -45,7 +45,7 @@ public class FluxOperationFlatMapTest {
 	public void flatMap() {
 
 		Flux<Integer> data = Flux.just(new Pair(1, 300), new Pair(2, 200), new Pair(3, 100))
-				.flatMap(id -> delayReplayFor(id.id, id.delay));
+				.flatMap(id -> delayReplayFor(id.id, id.delay)).log();
 
 		StepVerifier.create(data).expectNext(3, 2, 1).verifyComplete();
 

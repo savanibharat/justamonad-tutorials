@@ -1,24 +1,24 @@
 package com.justamonad.tutorials.reactive;
 
 import org.junit.Test;
-
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
 public class FluxOperationMapTest {
 
-	@Test
-	public void mapTest() {
+    @Test
+    public void mapTest() {
 
-		Flux<String> strings = Flux.just("a", "b", "c").map(String::toUpperCase);
+        Flux<String> strings = Flux.just("a", "b", "c").map(String::toUpperCase).log();
 
-		StepVerifier.create(strings).expectNext("A", "B", "C").verifyComplete();
+        StepVerifier.create(strings).expectNext("A", "B", "C").verifyComplete();
 
-		Flux.just("a", "b", "c").map(str -> {
-			System.out.println(str);
-			return str.toUpperCase();
-		}).subscribe();
+        Flux.just("a", "b", "c").map(str -> {
+                    System.out.println(str);
+                    return str.toUpperCase();
+                }).log()
+                .subscribe();
 
-	}
+    }
 
 }

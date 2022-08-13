@@ -19,12 +19,12 @@ public class AsyncApiIntegrationTest {
 
 	@Test
 	public void async() {
-		Flux<Integer> integers = Flux.create(emitter -> launch(emitter, 5));
+		Flux<Object> integers = Flux.create(emitter -> launch(emitter, 5)).log();
 		StepVerifier.create(integers.doFinally(signalType -> this.executorService.shutdown())).expectNextCount(5)
 				.verifyComplete();
 	}
 
-	private void launch(FluxSink<Integer> integerFluxSink, int count) {
+	private void launch(FluxSink<Object> integerFluxSink, int count) {
 		this.executorService.submit(() -> {
 			var integer = new AtomicInteger();
 			Assert.assertNotNull(integerFluxSink);
