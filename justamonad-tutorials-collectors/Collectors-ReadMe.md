@@ -79,7 +79,7 @@
 21. Collect data to `Optional`
     1. Writing custom `Collector` for `Optional`
     2. Using `Optional.stream()` method and then Collecting using `Collector`
-22. Collecting data for `IntStream`, `LongStream` and `DoubleStream` using `Stream.boxed()`
+22. Collecting data for `IntStream`, `LongStream` and `DoubleStream` elements using `Stream.boxed()`
 
 
 
