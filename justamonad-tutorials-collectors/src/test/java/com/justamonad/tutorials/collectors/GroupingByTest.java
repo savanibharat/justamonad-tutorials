@@ -19,46 +19,6 @@ import java.util.stream.Collectors;
 public class GroupingByTest {
 
     @Test
-    public void groupingByMaxCurrencyTest() {
-        List<Transaction> dataSet = Transactions.getDataSet();
-        System.out.println("Input::");
-        dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
-
-        Map<CountryCode, Optional<Transaction>> txnsByCountry = dataSet
-                .stream()
-                .collect(
-                        Collectors.groupingBy(
-                                Transaction::country,
-                                Collectors.reducing(
-                                        BinaryOperator.maxBy(
-                                                Comparator.comparing(txn -> txn.invoice().invoiceTotal().getAmount())))));
-
-        System.out.println("\nOutput::");
-        txnsByCountry.forEach((k, v) -> System.out.println(k + "" +
-                v.stream().map(Transaction::transactionId).collect(Collectors.toList())));
-    }
-
-    @Test
-    public void groupingByMinCurrencyTest() {
-        List<Transaction> dataSet = Transactions.getDataSet();
-        System.out.println("Input::");
-        dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
-
-        Map<CountryCode, Optional<Transaction>> txnsByCountry = dataSet
-                .stream()
-                .collect(
-                        Collectors.groupingBy(
-                                Transaction::country,
-                                Collectors.reducing(
-                                        BinaryOperator.maxBy(
-                                                Comparator.comparing(txn -> txn.invoice().invoiceTotal().getAmount())))));
-
-        System.out.println("\nOutput::");
-        txnsByCountry.forEach((k, v) -> System.out.println(k + "" +
-                v.stream().map(Transaction::transactionId).collect(Collectors.toList())));
-    }
-
-    @Test
     public void groupingByCountryTest() {
         List<Transaction> dataSet = Transactions.getDataSet();
         System.out.println("Input::");
@@ -83,15 +43,15 @@ public class GroupingByTest {
                 .stream()
                 .collect(
                         Collectors.groupingBy(
-                            Transaction::country,
-                            Collectors.counting()));
+                                Transaction::country,
+                                Collectors.counting()));
 
         System.out.println("\nOutput::");
         System.out.println(totalTxnsByCountry);
     }
 
     @Test
-    public void groupingByCountryAndTotalValuedTransactionsByCountryTest() {
+    public void groupingByCountryAndTotalValuedTransactionsTest() {
         List<Transaction> dataSet = Transactions.getDataSet();
         System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
@@ -100,11 +60,53 @@ public class GroupingByTest {
                 .stream()
                 .collect(
                         Collectors.groupingBy(
-                            Transaction::country,
-                            Collectors.summingDouble(txn -> txn.amount().doubleValue())));
+                                Transaction::country,
+                                Collectors.summingDouble(txn -> txn.amount().doubleValue())));
 
         System.out.println("\nOutput::");
         System.out.println(totalTxnsByCountry);
+    }
+
+    @Test
+    public void groupingByCountryAndMaxInvoiceTransactionTest() {
+        List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
+        dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
+
+        Map<CountryCode, Optional<Transaction>> txnsByCountry = dataSet
+                .stream()
+                .collect(
+                        Collectors.groupingBy(
+                                Transaction::country,
+                                Collectors.reducing(
+                                        BinaryOperator.maxBy(
+                                                Comparator.comparing(
+                                                        txn -> txn.invoice().invoiceTotal().getAmount())))));
+
+        System.out.println("\nOutput::");
+        txnsByCountry.forEach((k, v) -> System.out.println(k + "" +
+                v.stream().map(Transaction::transactionId).collect(Collectors.toList())));
+    }
+
+    @Test
+    public void groupingByCountryAndMinInvoiceTransactionTest() {
+        List<Transaction> dataSet = Transactions.getDataSet();
+        System.out.println("Input::");
+        dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
+
+        Map<CountryCode, Optional<Transaction>> txnsByCountry = dataSet
+                .stream()
+                .collect(
+                        Collectors.groupingBy(
+                                Transaction::country,
+                                Collectors.reducing(
+                                        BinaryOperator.minBy(
+                                                Comparator.comparing(
+                                                        txn -> txn.invoice().invoiceTotal().getAmount())))));
+
+        System.out.println("\nOutput::");
+        txnsByCountry.forEach((k, v) -> System.out.println(k + "" +
+                v.stream().map(Transaction::transactionId).collect(Collectors.toList())));
     }
 
     @Test

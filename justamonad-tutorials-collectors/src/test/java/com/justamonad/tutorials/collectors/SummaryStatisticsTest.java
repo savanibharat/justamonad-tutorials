@@ -16,8 +16,7 @@ import com.justamonad.tutorials.common.Transactions;
 public class SummaryStatisticsTest {
 
 	@Test
-	public void summingInt() {
-		
+	public void summarizingIntTest() {
 		IntSummaryStatistics stats = Transactions.getDataSet()
 			.stream()
 			.map(Transaction::invoice)
@@ -27,13 +26,12 @@ public class SummaryStatisticsTest {
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
 			.collect(Collectors.summarizingInt(Money::getAmountMajorInt));
 
-		System.out.println("\nOutput::");
-		System.out.println(stats);
+		System.out.println("summingInt Output::" + stats);
+		System.out.println();
 	}
 	
 	@Test
-	public void summingLong() {
-		
+	public void summarizingLongTest() {
 		LongSummaryStatistics stats = Transactions.getDataSet()
 			.stream()
 			.map(Transaction::invoice)
@@ -43,14 +41,12 @@ public class SummaryStatisticsTest {
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.CAD)
 			.collect(Collectors.summarizingLong(Money::getAmountMajorLong));
 
-		System.out.println("\nOutput::");
-		System.out.println(stats);
-		
+		System.out.println("summingLong Output::" + stats);
+		System.out.println();
 	}
 	
 	@Test
-	public void summingDouble() {
-		
+	public void summarizingDoubleTest() {
 		DoubleSummaryStatistics stats = Transactions.getDataSet()
 			.stream()
 			.map(Transaction::invoice)
@@ -60,9 +56,8 @@ public class SummaryStatisticsTest {
 			.filter(money -> money.getCurrencyUnit() == CurrencyUnit.USD)
 			.collect(Collectors.summarizingDouble(money -> money.getAmountMajor().doubleValue()));
 
-		System.out.println("\nOutput::");
-		System.out.println(stats);
-
+		System.out.println("summingDouble Output::" + stats);
+		System.out.println();
 	}
 
 }

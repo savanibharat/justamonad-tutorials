@@ -6,12 +6,13 @@ import com.neovisionaries.i18n.CountryCode;
 import io.vavr.Tuple2;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Teeing {
+public class TeeingTest {
 
     @Test
     public void teeingTest() {
@@ -22,13 +23,13 @@ public class Teeing {
                 .filter(txn -> txn.country() == CountryCode.US)
                 .collect(
                         Collectors.teeing(
-                                Collectors.minBy(Comparator.comparing(txn -> txn.amount())),
-                                Collectors.minBy(Comparator.comparing(txn -> txn.amount())),
+                                Collectors.minBy(Comparator.comparing(Transaction::amount)),
+                                Collectors.maxBy(Comparator.comparing(Transaction::amount)),
                                 (min, max) -> Map.ofEntries(
-                                        Map.entry("MIN", min.get()),
+                                        Map.entry("MIN", min.get()), // Be careful about .get() on Optional.
                                         Map.entry("MAX", max.get()))));
 
-        System.out.println(result);
+        result.forEach((k, v)-> System.out.println(k + " " + v.amount()));
     }
 
     @Test
@@ -37,13 +38,14 @@ public class Teeing {
         System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
-        Map<CountryCode, List<Tuple2<String, Transaction>>> collect = dataSet.stream()
+        Map<CountryCode, List<Tuple2<String, Transaction>>> collect = dataSet
+                .stream()
                 .collect(
                         Collectors.groupingBy(
                                 Transaction::country,
                                 Collectors.teeing(
-                                        Collectors.minBy(Comparator.comparing(txn -> txn.amount())),
-                                        Collectors.minBy(Comparator.comparing(txn -> txn.amount())),
+                                        Collectors.minBy(Comparator.comparing(Transaction::amount)),
+                                        Collectors.maxBy(Comparator.comparing(Transaction::amount)),
                                         (min, max) -> List.of(
                                                 new Tuple2<>("MIN", min.get()), // Be careful about .get() on Optional.
                                                 new Tuple2<>("MAX", max.get())))));

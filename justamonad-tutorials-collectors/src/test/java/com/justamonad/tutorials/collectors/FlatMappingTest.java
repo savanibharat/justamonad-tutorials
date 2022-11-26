@@ -21,11 +21,12 @@ public class FlatMappingTest {
 
         Map<CountryCode, List<List<Item>>> itemsSoldByCountry = dataSet
                 .stream()
-                .collect(Collectors.groupingBy(
-                        Transaction::country,
-                        Collectors.mapping(
-                                txn -> txn.invoice().items(),
-                                Collectors.toList())));
+                .collect(
+                        Collectors.groupingBy(
+                            Transaction::country,
+                            Collectors.mapping(
+                                    txn -> txn.invoice().items(),
+                                    Collectors.toList())));
 
         System.out.println("\nOutput::");
         itemsSoldByCountry.forEach((k, v) -> System.out.println(
@@ -41,11 +42,12 @@ public class FlatMappingTest {
 
         Map<CountryCode, List<Item>> itemsSoldByCountry = dataSet
                 .stream()
-                .collect(Collectors.groupingBy(
-                        Transaction::country,
-                        Collectors.flatMapping(
-                                txn -> txn.invoice().items().stream(),
-                                Collectors.toList())));
+                .collect(
+                        Collectors.groupingBy(
+                                Transaction::country,
+                                Collectors.flatMapping(
+                                        txn -> txn.invoice().items().stream(),
+                                        Collectors.toList())));
 
         System.out.println("\nOutput::");
         itemsSoldByCountry.forEach((k, v) -> System.out.println(

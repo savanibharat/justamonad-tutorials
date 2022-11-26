@@ -8,26 +8,10 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class FilteringTest {
-
-    @Test
-    public void filteringCountryTest() {
-        List<Transaction> dataSet = Transactions.getDataSet();
-        System.out.println("Input::");
-        dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
-
-        List<Transaction> countryTransactions = dataSet
-                .stream()
-                .collect(
-                        Collectors.filtering(
-                                txn -> txn.country() == CountryCode.US,
-                                Collectors.toList()));
-
-        System.out.println("\nOutput::");
-        countryTransactions.forEach(txn -> System.out.println(txn.country() + " " + txn.transactionId()));
-    }
 
     @Test
     public void groupingByAndFilteringCountryAndAmountTest() {
@@ -35,17 +19,20 @@ public class FilteringTest {
         System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
-        Map<Transaction, Long> totalTxnsOfCountry = dataSet
+        Predicate<Transaction> p = txn -> txn.country() == CountryCode.US
+                && txn.amount().compareTo(new BigDecimal(15)) > 0;
+
+        Map<CountryCode, Long> totalTxnsOfCountry = dataSet
                 .stream()
-                .collect(Collectors.groupingBy(
-                            txn -> txn,
-                            Collectors.filtering(
-                                    txn -> txn.country() == CountryCode.US
-                                            && txn.amount().compareTo(new BigDecimal(15)) > 0,
-                                    Collectors.counting())));
+                .collect(
+                        Collectors.groupingBy(
+                                Transaction::country,
+                                Collectors.filtering(
+                                        p,
+                                        Collectors.counting())));
 
         System.out.println("\nOutput::");
-        totalTxnsOfCountry.forEach((k, v) -> System.out.println(k.transactionId() + " " + v));
+        totalTxnsOfCountry.forEach((k, v) -> System.out.println(k + " " + v));
     }
 
 }

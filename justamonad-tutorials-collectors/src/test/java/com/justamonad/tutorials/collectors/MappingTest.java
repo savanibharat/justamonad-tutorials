@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class MappingTest {
@@ -17,13 +19,14 @@ public class MappingTest {
         System.out.println("Input::");
         dataSet.forEach(val -> System.out.println(val.transactionId() + " :: " + val.country() + " :: " + val.amount()));
 
-        Map<CountryCode, List<Long>> collect = dataSet
+        Map<CountryCode, Set<Long>> collect = dataSet
                 .stream()
-                .collect(Collectors.groupingBy(
-                        Transaction::country,
-                        Collectors.mapping(
-                                Transaction::transactionId,
-                                Collectors.toList())));
+                .collect(
+                        Collectors.groupingBy(
+                                Transaction::country,
+                                Collectors.mapping(
+                                        Transaction::transactionId,
+                                        Collectors.toSet())));
 
         System.out.println("\nOutput::");
         System.out.println(collect);
