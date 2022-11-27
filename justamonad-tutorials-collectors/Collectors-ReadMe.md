@@ -13,9 +13,10 @@
    2. `Collectors.toUnmodifiableSet()`
    3. To Google Guava’s `ImmutableSet.toImmutableSet()`
 4. Collecting data to the `Collection` interface
-   1. Collect to `LinkedHashSet`
-   2. Collect to `TreeSet` ascending and descending order
-   3. Collect to `PriorityQueue` ascending and descending order
+   1. `Collectors.toCollection()`
+   2. Collect to `LinkedHashSet`
+   3. Collect to `TreeSet` ascending and descending order
+   4. Collect to `PriorityQueue` ascending and descending order
 5. Collecting data to Map interface
    1. `Collectors.toMap(Function, Function)`: Collect data to `HashMap` using specified key and value `Function`
    2. `Collectors.toMap(Function, Function, BinaryOperator)`: Collect data to `HashMap` using specified key and value `Function` and use `BinaryOperator` as merge function(executes this behavior if two key already exists in Map)
