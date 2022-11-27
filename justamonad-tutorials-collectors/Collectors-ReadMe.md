@@ -28,24 +28,24 @@
     3. `Collectors.toConcurrentMap(Function, Function, BinaryOperator, Supplier)`: Collect data to `Supplier` `Map` that extends `ConcurrentMap` using specified key and value `Function` and use `BinaryOperator` as merge function
 7. `Collectors.collectingAndThen()`: Collect elements and then apply additional finishing transformation
    1. Collect data to `List` and return `Collections.unmodifiableList()`
-   2. Collect data to `List` and return Google Guava `ImmutableList`
+   2. Collect data to `List` and return Google Guava's `ImmutableList`
    3. Collect data to `Set` and return `Collections.unmodifiableSet()`
-   4. Collect data to `Set` and return Google Guava `ImmutableSet`
+   4. Collect data to `Set` and return Google Guava's `ImmutableSet`
    5. Collect data to `Map` and return `Collections.unmodifiableMap()`
-   6. Collect data to `Map` and return Google Guava `ImmutableMap`
+   6. Collect data to `Map` and return Google Guava's `ImmutableMap`
 8. `Collectors.joining()`: Concatenate all input elements
    1. `Collectors.joining()`: Concatenate all input elements
    2. `Collectors.joining(CharSequence delimiter)`: Concatenate all input elements separated by delimiter
    3. `Collectors.joining(CharSequence delimiter, CharSequence prefix, CharSequence suffix)`: Concatenate all input elements separated by delimiter, prefix and suffix
-9. `Sum` all input elements of `int`, `long` and `double` types
+9. `Sum` all input elements of `int`, `long` and `double` type
    1. `Collectors.summingInt(ToIntFunction)`
    2. `Collectors.summingLong(ToLongFunction)`
    3. `Collectors.summingDouble(ToDoubleFunction)`
-10. `Average` all input elements of `int`, `long` and `double` types
+10. `Average` all input elements of `int`, `long` and `double` type
     1. `Collectors.averagingInt(ToIntFunction)`
     2. `Collectors.averagingLong(ToLongFunction)`
     3. `Collectors.averagingDouble(ToDoubleFunction)`
-11. `Summarizing` all input elements of `int`, `long` and `double` types. Gives information like min, max, count, sum and average
+11. `Summarizing` all input elements of `int`, `long` and `double` type. Gives information like min, max, count, sum and average
     1. `Collectors.summarizingInt(ToIntFunction)`
     2. `Collectors.summarizingLong(ToLongFunction)`
     3. `Collectors.summarizingDouble(ToDoubleFunction)`
@@ -71,17 +71,13 @@
     6. `Collectors.groupingByConcurrent(Function, Supplier, Collector)` collects input elements in Supplied `Map` that extends `ConcurrentMap` based on specified `Function` and downstream `Collector`
 17. Converting elements from type `U` to type `T` before accumulator function in `Collector`
     1. `Collectors.mapping(Function, Collector)` is most useful in multi-level reduction(`groupingBy()` or `partitioningBy()`) to convert element type before accumulation operation
-18. Converting elements from type U to type T before accumulator function in `Collector` where type `U` is of `Stream`
+18. Converting elements from type `U` to type `T` before accumulator function in `Collector` where type `U` is of `Stream`
     1. `Collectors.flatMapping(Function, Collector)`
-19. Filtering elements based on Predicate and accumulating only if `Predicate` returns true
+19. Filtering elements based on `Predicate` and accumulating only if `Predicate` returns true
     1. `Collectors.filtering(Predicate, Collector)` is most useful in multi-level reduction
-20. Composite Collector of two different Collectors
+20. Composite `Collector` of two different Collectors
     1. `Collectors.teeing(Collector, Collector, BiFunction)` processes all elements in both Collectors and result is merged using specified `BiFunction`
 21. Collect data to `Optional`
     1. Writing custom `Collector` for `Optional`
     2. Using `Optional.stream()` method and then Collecting using `Collector`
 22. Collecting data for `IntStream`, `LongStream` and `DoubleStream` elements using `Stream.boxed()`
-
-
-
-
