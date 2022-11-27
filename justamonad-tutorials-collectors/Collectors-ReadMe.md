@@ -19,12 +19,12 @@
 5. Collecting data to Map interface
    1. `Collectors.toMap(Function, Function)`: Collect data to `HashMap` using specified key and value `Function`
    2. `Collectors.toMap(Function, Function, BinaryOperator)`: Collect data to `HashMap` using specified key and value `Function` and use `BinaryOperator` as merge function(executes this behavior if two key already exists in Map)
-   3. `Collectors.toMap(Function, Function, BinaryOperator, Supplier)`: Collect data to `Supplier` `Map` that extends `java.util.Map` using specified key and value `Function` and use `BinaryOperator` as merge function
+   3. `Collectors.toMap(Function, Function, BinaryOperator, Supplier)`: Collect data to `Supplier` `Map` that extends `Map` using specified key and value `Function` and use `BinaryOperator` as merge function
    4. To Google Guava’s `ImmutableMap.toImmutableMap()`
-6. Collecting data to `java.util.concurrent.ConcurrentMap` interface
+6. Collecting data to `ConcurrentMap` interface
     1. `Collectors.toConcurrentMap(Function, Function)`: Collect data to `ConcurrentHashMap` using specified key and value `Function`
     2. `Collectors.toConcurrentMap(Function, Function, BinaryOperator)`: Collect data to `ConcurrentHashMap` using specified key and value `Function` and use `BinaryOperator` as merge function(executes this behavior if two key already exists in Map)
-    3. `Collectors.toConcurrentMap(Function, Function, BinaryOperator, Supplier)`: Collect data to `Supplier` `Map` that extends `java.util.concurrent.ConcurrentMap` using specified key and value `Function` and use `BinaryOperator` as merge function
+    3. `Collectors.toConcurrentMap(Function, Function, BinaryOperator, Supplier)`: Collect data to `Supplier` `Map` that extends `ConcurrentMap` using specified key and value `Function` and use `BinaryOperator` as merge function
 7. `Collectors.collectingAndThen`: Collect elements and then apply additional finishing transformation
    2. Collect data to `List` and return `Collections.unmodifiableList()`
    3. Collect data to `List` and return Google Guava `ImmutableList`
@@ -64,13 +64,13 @@
 16. Grouping elements into n groups
     1. `Collectors.groupingBy(Function)` collects input elements in `Map<K, List<T>>` based on specified `Function`
     2. `Collectors.groupingBy(Function, Collector)` collects input elements in `Map<K, D>` based on specified `Function` and downstream `Collector`
-    3. `Collectors.groupingBy(Function, Supplier, Collector)` collects input elements in Supplied `Map` that extends `java.util.Map` based on specified `Function` and downstream `Collector`
-    4. `Collectors.groupingByConcurrent(Function)` collects input elements in `java.util.concurrent.ConcurrentMap<K, List<T>>` based on specified `Function`
-    5. `Collectors.groupingByConcurrent(Function, Collector)` collects input elements in `java.util.concurrent.ConcurrentMap<K, D>` based on specified `Function` and downstream `Collector`
-    6. `Collectors.groupingByConcurrent(Function, Supplier, Collector)` collects input elements in Supplied `Map` that extends `java.util.concurrent.ConcurrentMap` based on specified `Function` and downstream `Collector`
+    3. `Collectors.groupingBy(Function, Supplier, Collector)` collects input elements in Supplied `Map` that extends `Map` based on specified `Function` and downstream `Collector`
+    4. `Collectors.groupingByConcurrent(Function)` collects input elements in `ConcurrentMap<K, List<T>>` based on specified `Function`
+    5. `Collectors.groupingByConcurrent(Function, Collector)` collects input elements in `ConcurrentMap<K, D>` based on specified `Function` and downstream `Collector`
+    6. `Collectors.groupingByConcurrent(Function, Supplier, Collector)` collects input elements in Supplied `Map` that extends `ConcurrentMap` based on specified `Function` and downstream `Collector`
 17. Converting elements from type `U` to type `T` before accumulator function in `Collector`
     1. `Collectors.mapping(Function, Collector)` is most useful in multi-level reduction(`groupingBy()` or `partitioningBy()`) to convert element type before accumulation operation
-18. Converting elements from type U to type T before accumulator function in `Collector` where type `U` is of `java.util.stream.Stream`
+18. Converting elements from type U to type T before accumulator function in `Collector` where type `U` is of `Stream`
     1. `Collectors.flatMapping(Function, Collector)`
 19. Filtering elements based on Predicate and accumulating only if `Predicate` returns true
     1. `Collectors.filtering(Predicate, Collector)` is most useful in multi-level reduction
