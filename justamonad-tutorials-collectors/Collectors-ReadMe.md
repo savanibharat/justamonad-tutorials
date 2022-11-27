@@ -1,9 +1,9 @@
 # Complete Guide to `Collectors`.
 
 1. Basics
-   1. What is `Collector` interface and why is it important?
+   1. Understand `Collector` interface and its importance
    2. Understand the internal working of the `Collector` by implementing the `ArrayList` collector
-   3. Understanding `Transaction` class
+   3. Understand `Transaction` class
 2. Collecting data to the `List` interface
    1. `Collectors.toList()`
    2. `Collectors.toUnmodifiableList()`
@@ -18,12 +18,12 @@
    3. Collect to `PriorityQueue` ascending and descending order
 5. Collecting data to Map interface
    1. `Collectors.toMap(Function, Function)`: Collect data to `HashMap` using specified key and value `Function`
-   2. `Collectors.toMap(Function, Function, BinaryOperator)`: Collect data to `HashMap` using specified key and value `Function` and use `BinaryOperator` as merge function
+   2. `Collectors.toMap(Function, Function, BinaryOperator)`: Collect data to `HashMap` using specified key and value `Function` and use `BinaryOperator` as merge function(executes this behavior if two key already exists in Map)
    3. `Collectors.toMap(Function, Function, BinaryOperator, Supplier)`: Collect data to `Supplier` `Map` that extends `java.util.Map` using specified key and value `Function` and use `BinaryOperator` as merge function
    4. To Google Guava’s `ImmutableMap.toImmutableMap()`
 6. Collecting data to `java.util.concurrent.ConcurrentMap` interface
     1. `Collectors.toConcurrentMap(Function, Function)`: Collect data to `ConcurrentHashMap` using specified key and value `Function`
-    2. `Collectors.toConcurrentMap(Function, Function, BinaryOperator)`: Collect data to `ConcurrentHashMap` using specified key and value `Function` and use `BinaryOperator` as merge function
+    2. `Collectors.toConcurrentMap(Function, Function, BinaryOperator)`: Collect data to `ConcurrentHashMap` using specified key and value `Function` and use `BinaryOperator` as merge function(executes this behavior if two key already exists in Map)
     3. `Collectors.toConcurrentMap(Function, Function, BinaryOperator, Supplier)`: Collect data to `Supplier` `Map` that extends `java.util.concurrent.ConcurrentMap` using specified key and value `Function` and use `BinaryOperator` as merge function
 7. `Collectors.collectingAndThen`: Collect elements and then apply additional finishing transformation
    2. Collect data to `List` and return `Collections.unmodifiableList()`
@@ -32,7 +32,7 @@
    5. Collect data to `Set` and return Google Guava `ImmutableSet`
    6. Collect data to `Map` and return `Collections.unmodifiableMap()`
    7. Collect data to `Map` and return Google Guava `ImmutableMap`
-8. Collecting data using the joining method
+8. `Collectors.joining()`: Concatenate all input elements
    1. `Collectors.joining()`: Concatenate all input elements
    2. `Collectors.joining(CharSequence delimiter)`: Concatenate all input elements separated by delimiter
    3. `Collectors.joining(CharSequence delimiter, CharSequence prefix, CharSequence suffix)`: Concatenate all input elements separated by delimiter, prefix and suffix
