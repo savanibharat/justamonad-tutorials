@@ -25,13 +25,13 @@
     1. `Collectors.toConcurrentMap(Function, Function)`: Collect data to `ConcurrentHashMap` using specified key and value `Function`
     2. `Collectors.toConcurrentMap(Function, Function, BinaryOperator)`: Collect data to `ConcurrentHashMap` using specified key and value `Function` and use `BinaryOperator` as merge function(executes this behavior if two key already exists in Map)
     3. `Collectors.toConcurrentMap(Function, Function, BinaryOperator, Supplier)`: Collect data to `Supplier` `Map` that extends `ConcurrentMap` using specified key and value `Function` and use `BinaryOperator` as merge function
-7. `Collectors.collectingAndThen`: Collect elements and then apply additional finishing transformation
-   2. Collect data to `List` and return `Collections.unmodifiableList()`
-   3. Collect data to `List` and return Google Guava `ImmutableList`
-   4. Collect data to `Set` and return `Collections.unmodifiableSet()`
-   5. Collect data to `Set` and return Google Guava `ImmutableSet`
-   6. Collect data to `Map` and return `Collections.unmodifiableMap()`
-   7. Collect data to `Map` and return Google Guava `ImmutableMap`
+7. `Collectors.collectingAndThen()`: Collect elements and then apply additional finishing transformation
+   1. Collect data to `List` and return `Collections.unmodifiableList()`
+   2. Collect data to `List` and return Google Guava `ImmutableList`
+   3. Collect data to `Set` and return `Collections.unmodifiableSet()`
+   4. Collect data to `Set` and return Google Guava `ImmutableSet`
+   5. Collect data to `Map` and return `Collections.unmodifiableMap()`
+   6. Collect data to `Map` and return Google Guava `ImmutableMap`
 8. `Collectors.joining()`: Concatenate all input elements
    1. `Collectors.joining()`: Concatenate all input elements
    2. `Collectors.joining(CharSequence delimiter)`: Concatenate all input elements separated by delimiter
