@@ -17,7 +17,7 @@
    2. Collect to `LinkedHashSet`
    3. Collect to `TreeSet` ascending and descending order
    4. Collect to `PriorityQueue` ascending and descending order
-5. Collecting data to Map interface
+5. Collecting data to `Map` interface
    1. `Collectors.toMap(Function, Function)`: Collect data to `HashMap` using specified key and value `Function`
    2. `Collectors.toMap(Function, Function, BinaryOperator)`: Collect data to `HashMap` using specified key and value `Function` and use `BinaryOperator` as merge function(executes this behavior if two key already exists in Map)
    3. `Collectors.toMap(Function, Function, BinaryOperator, Supplier)`: Collect data to `Supplier` `Map` that extends `Map` using specified key and value `Function` and use `BinaryOperator` as merge function
